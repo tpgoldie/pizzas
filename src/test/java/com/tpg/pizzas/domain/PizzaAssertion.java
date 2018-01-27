@@ -15,34 +15,40 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public abstract class PizzaAssertion<U extends Pizza> extends AbstractAssert<PizzaAssertion<U>, U> {
 
-    protected PizzaAssertion(Pizza actual) {
+    PizzaAssertion(Pizza actual) {
 
         super((U) actual, PizzaAssertion.class);
     }
 
-    public PizzaAssertion hasDescription(String value) {
+    PizzaAssertion hasDescription(String value) {
 
         assertThat(actual.getDescription()).isEqualTo(value);
 
         return this;
     }
 
-    public PizzaAssertion hasType(Type value) {
+    PizzaAssertion hasType(Type value) {
 
         assertThat(actual.getType()).isEqualTo(value);
 
         return this;
     }
 
+    public PizzaAssertion hasName(String value) {
 
-    public PizzaAssertion hasSize(Size value) {
+        assertThat(actual.getName()).isEqualTo(value);
+
+        return this;
+    }
+
+    PizzaAssertion hasSize(Size value) {
 
         assertThat(actual.getSize()).isEqualTo(value);
 
         return this;
     }
 
-    public PizzaAssertion hasCrustiness(Crustiness value) {
+    PizzaAssertion hasCrustiness(Crustiness value) {
 
         assertThat(actual.getCrustiness()).isEqualTo(value);
 
@@ -56,7 +62,7 @@ public abstract class PizzaAssertion<U extends Pizza> extends AbstractAssert<Piz
         return this;
     }
 
-    public PizzaAssertion hasIngredients(Ingredient... ingredients) {
+    PizzaAssertion hasIngredients(Ingredient... ingredients) {
 
         Set<Ingredient> expectedValues = Arrays.stream(ingredients).collect(toSet());
 

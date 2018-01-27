@@ -2,7 +2,7 @@ package com.tpg.pizzas.domain;
 
 public class PizzasAssertions {
 
-    static AmericanHotAssertion assertThat(AmericanHot actual) {
+    public static AmericanHotAssertion assertThat(AmericanHot actual) {
 
         return new AmericanHotAssertion(actual);
     }

@@ -6,7 +6,7 @@ import com.tpg.pizzas.domain.ingredients.Pepperoni;
 
 import static com.tpg.pizzas.domain.Pizza.Type.MEATS;
 
-final class AmericanHot extends Pizza {
+public final class AmericanHot extends Pizza {
 
     private AmericanHot(Builder builder) {
 
@@ -16,7 +16,9 @@ final class AmericanHot extends Pizza {
     public static class Builder extends Pizza.Builder<Builder> {
 
         @Override
-        Pizza build() throws InvalidPizzaException {
+        public Pizza build() throws InvalidPizzaException {
+
+            name("American Hot");
 
             validateCrustiness();
 

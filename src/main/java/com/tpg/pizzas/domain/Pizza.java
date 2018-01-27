@@ -22,6 +22,8 @@ public abstract class Pizza implements WithStuffedCrust {
 
     private Type type;
 
+    private String name;
+
     private String description;
 
     private Size size;
@@ -35,6 +37,8 @@ public abstract class Pizza implements WithStuffedCrust {
     Pizza(Builder<?> builder, Type type, Ingredient... ingredients) {
 
         assert ingredients.length > 0;
+
+        this.name = builder.name;
 
         this.type = type;
 
@@ -52,15 +56,30 @@ public abstract class Pizza implements WithStuffedCrust {
         return stuffedCrust;
     }
 
-    abstract static class Builder<T extends Builder<T>> {
+    @Override
+    public String toString() {
+
+        return name;
+    }
+
+    public abstract static class Builder<T extends Builder<T>> {
+
+        private String name;
 
         private String description;
 
         private Size size;
 
-        protected Crustiness crustiness = ORIGINAL;
+        private Crustiness crustiness = ORIGINAL;
 
         private boolean withStuffedCrust;
+
+        public T name(String value) {
+
+            this.name = value;
+
+            return self();
+        }
 
         public T size(Size value) {
 
@@ -90,7 +109,7 @@ public abstract class Pizza implements WithStuffedCrust {
             return self();
         }
 
-        abstract Pizza build() throws InvalidPizzaException;
+        public abstract Pizza build() throws InvalidPizzaException;
 
         protected abstract T self();
 

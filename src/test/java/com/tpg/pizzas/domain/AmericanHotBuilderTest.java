@@ -30,6 +30,7 @@ public class AmericanHotBuilderTest extends PizzaBuilderTest {
                                     .build();
 
         assertThat(actual)
+            .hasName("American Hot")
             .hasType(MEATS)
             .hasSize(LARGE)
             .hasDescription(description)

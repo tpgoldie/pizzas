@@ -26,6 +26,7 @@ public class TheGreekBuilderTest extends PizzaBuilderTest {
                 .build();
 
         assertThat(actual)
+                .hasName("The Greek")
                 .hasType(VEGETARIAN)
                 .hasSize(MEDIUM)
                 .hasCrustiness(THIN_CRUST)

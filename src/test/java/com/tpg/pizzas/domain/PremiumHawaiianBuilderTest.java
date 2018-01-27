@@ -28,6 +28,7 @@ public class PremiumHawaiianBuilderTest extends PizzaBuilderTest {
                 .build();
 
         assertThat(actual)
+                .hasName("Premium Hawaiian")
                 .hasType(MEATS)
                 .hasSize(SMALL)
                 .hasCrustiness(ORIGINAL)

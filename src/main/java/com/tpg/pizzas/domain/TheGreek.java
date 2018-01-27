@@ -4,7 +4,7 @@ import com.tpg.pizzas.domain.ingredients.*;
 
 import static com.tpg.pizzas.domain.Pizza.Type.VEGETARIAN;
 
-final class TheGreek extends Pizza {
+public final class TheGreek extends Pizza {
 
     private TheGreek(Builder builder) {
 
@@ -15,9 +15,11 @@ final class TheGreek extends Pizza {
     public static class Builder extends Pizza.Builder<Builder> {
 
         @Override
-        Pizza build() throws InvalidPizzaException {
+        public Pizza build() throws InvalidPizzaException {
 
             validateCrustiness();
+
+            name("The Greek");
 
             return new TheGreek(this);
         }
