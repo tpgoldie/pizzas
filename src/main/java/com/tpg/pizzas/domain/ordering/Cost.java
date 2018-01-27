@@ -13,4 +13,9 @@ public final class Cost extends Price {
 
         super(value);
     }
+
+    public Cost add(Cost cost) {
+
+        return new Cost(this.getPrice().add(cost.getPrice()));
+    }
 }

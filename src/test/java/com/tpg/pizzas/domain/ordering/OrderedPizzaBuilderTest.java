@@ -33,7 +33,8 @@ public class OrderedPizzaBuilderTest {
         assertThat(actual)
             .hasPizza(pizza)
             .hasUnitPrice(new UnitPrice(new BigDecimal(16.99)))
-            .hasQuantity(new Quantity(3));
+            .hasQuantity(new Quantity(3))
+            .hasCost(new Cost(new BigDecimal(3 * 16.99)));
 
         PizzasAssertions.assertThat(pizza).withStuffedCrust(false);
     }

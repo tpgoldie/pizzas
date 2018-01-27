@@ -12,6 +12,7 @@ public class OrderedPizza extends OrderItem {
     private Pizza pizza;
 
     OrderedPizza(Builder builder) {
+
         super(builder);
 
         pizza = builder.pizza;
@@ -19,7 +20,8 @@ public class OrderedPizza extends OrderItem {
 
     @Override
     public String toString() {
-        return String.format("%s: %s", pizza, super.toString());
+
+        return String.format("%s @ %s", pizza, super.toString());
     }
 
     public static class Builder extends OrderItem.Builder<Builder> {
@@ -34,7 +36,7 @@ public class OrderedPizza extends OrderItem {
         }
 
         @Override
-        OrderedPizza build() {
+        public OrderedPizza build() {
 
             return new OrderedPizza(this);
         }
@@ -45,5 +47,4 @@ public class OrderedPizza extends OrderItem {
             return this;
         }
     }
-
 }

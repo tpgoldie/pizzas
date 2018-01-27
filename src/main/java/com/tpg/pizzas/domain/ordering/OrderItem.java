@@ -20,21 +20,21 @@ public abstract class OrderItem {
         quantity = new Quantity(builder.quantity);
     }
 
-    public Cost cost() {
+    public Cost getCost() {
 
-        return null;
+        return unitPrice.multiplyBy(quantity);
     }
 
     @Override
     public String toString() {
-        return String.format("%s @ %s", unitPrice, quantity);
+        return String.format("%s @ %s", quantity, unitPrice);
     }
 
     abstract static class Builder<T extends Builder<T>> {
 
         private BigDecimal unitPrice;
 
-        private int quantity;
+        protected int quantity;
 
         public T unitPrice(BigDecimal value) {
 
@@ -50,7 +50,7 @@ public abstract class OrderItem {
             return self();
         }
 
-        abstract OrderItem build();
+        public abstract OrderItem build();
 
         protected abstract T self();
 

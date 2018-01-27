@@ -24,4 +24,11 @@ public abstract class OrderItemAssertion<U extends OrderItem> extends AbstractAs
 
         return this;
     }
+
+    OrderItemAssertion hasCost(Cost value) {
+
+        assertThat(actual.getCost()).isEqualTo(value);
+
+        return this;
+    }
 }
