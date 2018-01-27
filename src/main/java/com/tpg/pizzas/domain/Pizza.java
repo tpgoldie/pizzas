@@ -6,6 +6,7 @@ import lombok.Getter;
 
 import java.util.List;
 
+import static com.tpg.pizzas.domain.Pizza.Crustiness.ORIGINAL;
 import static java.util.Arrays.stream;
 import static java.util.stream.Collectors.toList;
 
@@ -57,7 +58,7 @@ public abstract class Pizza implements WithStuffedCrust {
 
         private Size size;
 
-        protected Crustiness crustiness;
+        protected Crustiness crustiness = ORIGINAL;
 
         private boolean withStuffedCrust;
 

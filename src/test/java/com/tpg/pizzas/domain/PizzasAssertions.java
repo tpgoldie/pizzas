@@ -2,13 +2,18 @@ package com.tpg.pizzas.domain;
 
 public class PizzasAssertions {
 
-    static AmericanHotPizzaAssertion assertThat(AmericanHot actual) {
+    static AmericanHotAssertion assertThat(AmericanHot actual) {
 
-        return new AmericanHotPizzaAssertion(actual);
+        return new AmericanHotAssertion(actual);
     }
 
-    static TheGreekPizzaAssertion assertThat(TheGreek actual) {
+    static TheGreekAssertion assertThat(TheGreek actual) {
 
-        return new TheGreekPizzaAssertion(actual);
+        return new TheGreekAssertion(actual);
+    }
+
+    static PremiumHawaiianAssertion assertThat(PremiumHawaiian actual) {
+
+        return new PremiumHawaiianAssertion(actual);
     }
 }
