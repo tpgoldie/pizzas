@@ -1,13 +1,13 @@
-package com.tpg.pizzas.domain.toppings;
+package com.tpg.pizzas.domain.ingredients;
 
 import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode(callSuper = true)
-public final class Cheese extends Topping {
+public final class Cheese extends Ingredient {
 
     private static final Cheese INSTANCE = new Cheese();
 
-    public static Topping topping() { return INSTANCE; }
+    public static Ingredient ingredient() { return INSTANCE; }
 
     private Cheese() {
         super("cheese");

@@ -1,4 +1,4 @@
-package com.tpg.pizzas.domain.toppings;
+package com.tpg.pizzas.domain.ingredients;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -6,7 +6,7 @@ import lombok.Getter;
 
 @EqualsAndHashCode
 @AllArgsConstructor
-public abstract class Topping {
+public abstract class Ingredient {
 
     @Getter
     private final String name;

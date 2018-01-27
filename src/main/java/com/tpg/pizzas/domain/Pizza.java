@@ -1,23 +1,23 @@
 package com.tpg.pizzas.domain;
 
-import com.tpg.pizzas.domain.toppings.Cheese;
-import com.tpg.pizzas.domain.toppings.JalapenoPeppers;
-import com.tpg.pizzas.domain.toppings.Pepperoni;
-import com.tpg.pizzas.domain.toppings.Topping;
+import com.tpg.pizzas.domain.ingredients.Ingredient;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 import java.util.List;
 
-import static java.util.Arrays.asList;
+import static java.util.Arrays.stream;
+import static java.util.stream.Collectors.toList;
 
 @Getter
 @EqualsAndHashCode
-public abstract class Pizza {
+public abstract class Pizza implements WithStuffedCrust {
 
     public enum Size { SMALL, MEDIUM, LARGE, X_LARGE }
 
     public enum Type { MEATS, VEGETARIAN }
+
+    public enum Crustiness { THIN_CRUST, ORIGINAL, DEEP_CRUST }
 
     private Type type;
 
@@ -25,41 +25,45 @@ public abstract class Pizza {
 
     private Size size;
 
-    private List<Topping> toppings;
+    private Crustiness crustiness;
+
+    private List<Ingredient> ingredients;
 
     private boolean stuffedCrust;
 
-    Pizza(Builder<?> builder) {
+    Pizza(Builder<?> builder, Type type, Ingredient... ingredients) {
 
-        type = builder.type;
+        assert ingredients.length > 0;
+
+        this.type = type;
+
+        this.crustiness = builder.crustiness;
+
+        this.ingredients = stream(ingredients).collect(toList());
+
         size = builder.size;
         description = builder.description;
-        toppings = builder.toppings;
         stuffedCrust = builder.withStuffedCrust;
+    }
+
+    public boolean withStuffedCrust() {
+
+        return stuffedCrust;
     }
 
     abstract static class Builder<T extends Builder<T>> {
 
-        private List<Topping> toppings = asList(Cheese.topping(), Pepperoni.topping(), JalapenoPeppers.topping());
-
         private String description;
 
-        private Type type;
-
         private Size size;
+
+        protected Crustiness crustiness;
 
         private boolean withStuffedCrust;
 
         public T size(Size value) {
 
             this.size = value;
-
-            return self();
-        }
-
-        public T type(Type value) {
-
-            this.type = value;
 
             return self();
         }
@@ -71,6 +75,13 @@ public abstract class Pizza {
             return self();
         }
 
+        public T crustiness(Crustiness value) {
+
+            this.crustiness = value;
+
+            return self();
+        }
+
         public T withStuffedCrust(boolean value) {
 
             this.withStuffedCrust = value;
@@ -78,8 +89,13 @@ public abstract class Pizza {
             return self();
         }
 
-        abstract Pizza build();
+        abstract Pizza build() throws InvalidPizzaException;
 
         protected abstract T self();
+
+        void validateCrustiness() throws MissingCrustinessException {
+
+            if (crustiness == null) { throw new MissingCrustinessException(); }
+        }
     }
 }
