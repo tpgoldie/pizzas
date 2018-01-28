@@ -1,6 +1,7 @@
 package com.tpg.pjs.ordering;
 
 
+import com.tpg.pjs.ordering.Order.Status;
 import org.assertj.core.api.AbstractAssert;
 import org.junit.Assert;
 
@@ -23,6 +24,13 @@ public class OrderDetailsRequestAssertion extends AbstractAssert<OrderDetailsReq
     public OrderDetailsRequestAssertion hasOrderItems(List<OrderItemDetails> value) {
 
         Assert.assertEquals("order items do not match", value, actual.getOrderItems());
+
+        return this;
+    }
+
+    public OrderDetailsRequestAssertion hasOrderStatus(Status value) {
+
+        Assert.assertEquals("order status does not match", value, actual.getOrderItems());
 
         return this;
     }
