@@ -14,7 +14,7 @@ public abstract class Price implements Pricing {
 
     Price(BigDecimal price) {
 
-        this.price = price;
+        this.price = price.setScale(PRICING_SCALE, PRICING_ROUNDING_MODE);
     }
 
     @Override
@@ -26,7 +26,7 @@ public abstract class Price implements Pricing {
         Price that = (Price) obj;
 
         return new EqualsBuilder()
-                .append(that.price.compareTo(this.price), 0)
+                .append(that.price.equals(this.price), true)
                 .isEquals();
     }
 

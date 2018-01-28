@@ -16,4 +16,9 @@ public class PizzasAssertions {
 
         return new PremiumHawaiianAssertion(actual);
     }
+
+    static ChickenClubAssertion assertThat(ChickenClub actual) {
+
+        return new ChickenClubAssertion(actual);
+    }
 }
