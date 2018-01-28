@@ -1,4 +1,4 @@
-package com.tpg.pjs.pizzas.ordering;
+package com.tpg.pjs.ordering;
 
 import com.tpg.pjs.pizzas.AmericanHot;
 import com.tpg.pjs.pizzas.InvalidPizzaException;
@@ -10,7 +10,7 @@ import org.junit.Test;
 import java.math.BigDecimal;
 
 import static com.tpg.pjs.pizzas.Pizza.Crustiness.DEEP_CRUST;
-import static com.tpg.pjs.pizzas.ordering.OrderingAssertions.assertThat;
+import static com.tpg.pjs.ordering.OrderingAssertions.assertThat;
 
 public class OrderedPizzaWithStuffedCrustBuilderTest {
 

@@ -1,4 +1,4 @@
-package com.tpg.pjs.pizzas.ordering;
+package com.tpg.pjs.ordering;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

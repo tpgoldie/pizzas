@@ -1,4 +1,4 @@
-package com.tpg.pjs.pizzas.ordering;
+package com.tpg.pjs.ordering;
 
 import org.junit.Before;
 import org.junit.Test;

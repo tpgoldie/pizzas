@@ -1,8 +1,8 @@
 package com.tpg.pjs.pizzas;
 
-import com.tpg.pjs.pizzas.ordering.Cost;
-import com.tpg.pjs.pizzas.ordering.Quantity;
-import com.tpg.pjs.pizzas.ordering.UnitPrice;
+import com.tpg.pjs.ordering.Cost;
+import com.tpg.pjs.ordering.Quantity;
+import com.tpg.pjs.ordering.UnitPrice;
 import org.junit.Before;
 import org.junit.Test;
 
