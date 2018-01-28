@@ -1,39 +1,38 @@
 package com.tpg.pizzas.domain;
 
-import com.tpg.pizzas.domain.ingredients.Cheese;
-import com.tpg.pizzas.domain.ingredients.JalapenoPeppers;
-import com.tpg.pizzas.domain.ingredients.Pepperoni;
+import com.tpg.pizzas.domain.ingredients.*;
 import org.junit.Before;
 import org.junit.Test;
 
 import static com.tpg.pizzas.domain.Pizza.Crustiness.DEEP_CRUST;
-import static com.tpg.pizzas.domain.Pizza.Size.LARGE;
+import static com.tpg.pizzas.domain.Pizza.Size.SMALL;
 import static com.tpg.pizzas.domain.Pizza.Type.MEATS;
 import static com.tpg.pizzas.domain.PizzasAssertions.assertThat;
 
-public class AmericanHotBuilderTest extends PizzaBuilderTest {
+public class PapasFavouriteBuilderTest extends PizzaBuilderTest {
 
     @Before
     public void setUp() {
 
-        builder = new AmericanHot.Builder();
+        builder = new PapasFavourite.Builder();
     }
 
     @Test
     public void build() throws InvalidPizzaException {
 
-        AmericanHot actual = (AmericanHot) builder.size(LARGE).crustiness(DEEP_CRUST)
+        PapasFavourite actual = (PapasFavourite) builder.size(SMALL).crustiness(DEEP_CRUST)
                                     .description(DESCRIPTION)
                                     .withStuffedCrust(true)
                                     .build();
 
         assertThat(actual)
-            .hasName("American Hot")
+            .hasName("The Papa's Favourite")
             .hasType(MEATS)
-            .hasSize(LARGE)
+            .hasSize(SMALL)
             .hasDescription(DESCRIPTION)
             .hasCrustiness(DEEP_CRUST)
-            .hasIngredients(Cheese.ingredient(), JalapenoPeppers.ingredient(), Pepperoni.ingredient())
+            .hasIngredients(ItalianSixCheeseBlend.ingredient(), PorkSausage.ingredient(), Cheese.ingredient(),
+                    Pepperoni.ingredient(), ItalianSeasoning.ingredient(), ItalianSixCheeseBlend.ingredient())
             .withStuffedCrust(true);
     }
 }

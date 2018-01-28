@@ -3,11 +3,8 @@ package com.tpg.pizzas.domain;
 import org.junit.Test;
 
 import static com.tpg.pizzas.domain.Pizza.Crustiness.DEEP_CRUST;
-import static com.tpg.pizzas.domain.Pizza.Crustiness.ORIGINAL;
 import static com.tpg.pizzas.domain.Pizza.Crustiness.THIN_CRUST;
-import static com.tpg.pizzas.domain.Pizzas.americanHot;
-import static com.tpg.pizzas.domain.Pizzas.premiumHawaiian;
-import static com.tpg.pizzas.domain.Pizzas.theGreek;
+import static com.tpg.pizzas.domain.Pizzas.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class PizzasTest {
@@ -32,6 +29,21 @@ public class PizzasTest {
     public void buildPremiumHawaiian() throws InvalidPizzaException {
 
         PremiumHawaiian actual = (PremiumHawaiian) premiumHawaiian().build();
+
+        assertThat(actual).isNotNull();
+    }
+
+    @Test
+    public void buildChickenClub() throws InvalidPizzaException {
+
+        ChickenClub actual = (ChickenClub) chickenClub().build();
+
+        assertThat(actual).isNotNull();
+    }
+    @Test
+    public void buildPapasFavourite() throws InvalidPizzaException {
+
+        PapasFavourite actual = (PapasFavourite) papasFavourite().build();
 
         assertThat(actual).isNotNull();
     }

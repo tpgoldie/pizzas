@@ -20,10 +20,8 @@ public class ChickenClubBuilderTest extends PizzaBuilderTest {
     @Test
     public void build() throws InvalidPizzaException {
 
-        String description = "This all-time classic pizza is back by popular demand.";
-
         ChickenClub actual = (ChickenClub) builder.size(LARGE).crustiness(DEEP_CRUST)
-                                    .description(description)
+                                    .description(DESCRIPTION)
                                     .withStuffedCrust(true)
                                     .build();
 
@@ -31,7 +29,7 @@ public class ChickenClubBuilderTest extends PizzaBuilderTest {
             .hasName("Chicken Club")
             .hasType(MEATS)
             .hasSize(LARGE)
-            .hasDescription(description)
+            .hasDescription(DESCRIPTION)
             .hasCrustiness(DEEP_CRUST)
             .hasIngredients(Chicken.ingredient(), Bacon.ingredient(), Cheese.ingredient(),
                     Onions.ingredient(), Tomatoes.ingredient())

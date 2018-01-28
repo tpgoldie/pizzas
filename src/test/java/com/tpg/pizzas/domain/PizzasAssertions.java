@@ -21,4 +21,9 @@ public class PizzasAssertions {
 
         return new ChickenClubAssertion(actual);
     }
+
+    static PapasFavouriteAssertion assertThat(PapasFavourite actual) {
+
+        return new PapasFavouriteAssertion(actual);
+    }
 }
