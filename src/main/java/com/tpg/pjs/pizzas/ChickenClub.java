@@ -2,6 +2,7 @@ package com.tpg.pjs.pizzas;
 
 import com.tpg.pjs.pizzas.ingredients.*;
 
+import static com.tpg.pjs.pizzas.Codes.CHICKEN_CLUB_CODE;
 import static com.tpg.pjs.pizzas.Pizza.Type.MEATS;
 
 public final class ChickenClub extends Pizza {
@@ -18,6 +19,8 @@ public final class ChickenClub extends Pizza {
         public Pizza build() throws InvalidPizzaException {
 
             name("Chicken Club");
+
+            code(CHICKEN_CLUB_CODE.getValue());
 
             validateCrustiness();
 

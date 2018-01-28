@@ -11,4 +11,9 @@ public class OrderingAssertions {
 
         return new OrderedPizzaWithStuffedCrustAssertion(actual);
     }
+
+    public static OrderDetailsRequestAssertion assertThat(OrderDetailsRequest actual) {
+
+        return new OrderDetailsRequestAssertion(actual);
+    }
 }

@@ -4,6 +4,7 @@ import com.tpg.pjs.pizzas.ingredients.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import static com.tpg.pjs.pizzas.Codes.THE_GREEK_CODE;
 import static com.tpg.pjs.pizzas.Pizza.Crustiness.THIN_CRUST;
 import static com.tpg.pjs.pizzas.Pizza.Size.MEDIUM;
 import static com.tpg.pjs.pizzas.Pizza.Type.VEGETARIAN;
@@ -27,6 +28,7 @@ public class TheGreekBuilderTest extends PizzaBuilderTest {
 
         assertThat(actual)
                 .hasName("The Greek")
+                .hasCode(THE_GREEK_CODE.getValue())
                 .hasType(VEGETARIAN)
                 .hasSize(MEDIUM)
                 .hasCrustiness(THIN_CRUST)

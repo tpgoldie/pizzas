@@ -20,6 +20,13 @@ public abstract class PizzaAssertion<U extends Pizza> extends AbstractAssert<Piz
         super((U) actual, PizzaAssertion.class);
     }
 
+    PizzaAssertion hasCode(String value) {
+
+        assertThat(actual.getCode()).isEqualTo(value);
+
+        return this;
+    }
+
     PizzaAssertion hasDescription(String value) {
 
         assertThat(actual.getDescription()).isEqualTo(value);

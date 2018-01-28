@@ -6,6 +6,7 @@ import com.tpg.pjs.pizzas.ingredients.Pepperoni;
 import org.junit.Before;
 import org.junit.Test;
 
+import static com.tpg.pjs.pizzas.Codes.AMERICAN_HOT_CODE;
 import static com.tpg.pjs.pizzas.Pizza.Crustiness.DEEP_CRUST;
 import static com.tpg.pjs.pizzas.Pizza.Size.LARGE;
 import static com.tpg.pjs.pizzas.Pizza.Type.MEATS;
@@ -29,6 +30,7 @@ public class AmericanHotBuilderTest extends PizzaBuilderTest {
 
         assertThat(actual)
             .hasName("American Hot")
+            .hasCode(AMERICAN_HOT_CODE.getValue())
             .hasType(MEATS)
             .hasSize(LARGE)
             .hasDescription(DESCRIPTION)

@@ -2,6 +2,7 @@ package com.tpg.pjs.pizzas;
 
 import com.tpg.pjs.pizzas.ingredients.*;
 
+import static com.tpg.pjs.pizzas.Codes.THE_GREEK_CODE;
 import static com.tpg.pjs.pizzas.Pizza.Type.VEGETARIAN;
 
 public final class TheGreek extends Pizza {
@@ -20,6 +21,8 @@ public final class TheGreek extends Pizza {
             validateCrustiness();
 
             name("The Greek");
+
+            code(THE_GREEK_CODE.getValue());
 
             return new TheGreek(this);
         }

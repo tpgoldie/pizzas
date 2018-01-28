@@ -4,6 +4,7 @@ import com.tpg.pjs.pizzas.ingredients.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import static com.tpg.pjs.pizzas.Codes.CHICKEN_CLUB_CODE;
 import static com.tpg.pjs.pizzas.Pizza.Crustiness.DEEP_CRUST;
 import static com.tpg.pjs.pizzas.Pizza.Size.LARGE;
 import static com.tpg.pjs.pizzas.Pizza.Type.MEATS;
@@ -27,6 +28,7 @@ public class ChickenClubBuilderTest extends PizzaBuilderTest {
 
         assertThat(actual)
             .hasName("Chicken Club")
+            .hasCode(CHICKEN_CLUB_CODE.getValue())
             .hasType(MEATS)
             .hasSize(LARGE)
             .hasDescription(DESCRIPTION)

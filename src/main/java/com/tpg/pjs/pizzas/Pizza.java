@@ -24,6 +24,8 @@ public abstract class Pizza implements WithStuffedCrust {
 
     private String name;
 
+    private String code;
+
     private String description;
 
     private Size size;
@@ -39,6 +41,8 @@ public abstract class Pizza implements WithStuffedCrust {
         assert ingredients.length > 0;
 
         this.name = builder.name;
+
+        this.code = builder.code;
 
         this.type = type;
 
@@ -66,6 +70,8 @@ public abstract class Pizza implements WithStuffedCrust {
 
         private String name;
 
+        private String code;
+
         private String description;
 
         private Size size;
@@ -73,6 +79,13 @@ public abstract class Pizza implements WithStuffedCrust {
         private Crustiness crustiness = ORIGINAL;
 
         private boolean withStuffedCrust;
+
+        public T code(String value) {
+
+            this.code = value;
+
+            return self();
+        }
 
         public T name(String value) {
 

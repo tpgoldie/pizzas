@@ -4,6 +4,7 @@ import com.tpg.pjs.pizzas.ingredients.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import static com.tpg.pjs.pizzas.Codes.PAPAS_FAVOURITE_CODE;
 import static com.tpg.pjs.pizzas.Pizza.Crustiness.DEEP_CRUST;
 import static com.tpg.pjs.pizzas.Pizza.Size.SMALL;
 import static com.tpg.pjs.pizzas.Pizza.Type.MEATS;
@@ -27,6 +28,7 @@ public class PapasFavouriteBuilderTest extends PizzaBuilderTest {
 
         assertThat(actual)
             .hasName("The Papa's Favourite")
+            .hasCode(PAPAS_FAVOURITE_CODE.getValue())
             .hasType(MEATS)
             .hasSize(SMALL)
             .hasDescription(DESCRIPTION)
