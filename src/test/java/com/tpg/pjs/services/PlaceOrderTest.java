@@ -12,6 +12,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import static com.tpg.pjs.ordering.Order.Status.PENDING;
 import static com.tpg.pjs.ordering.OrderingAssertions.assertThat;
+import static com.tpg.pjs.services.PlacingOrders.given;
 
 @RunWith(MockitoJUnitRunner.class)
 public class PlaceOrderTest implements OrderDetailsRequestFixture {
@@ -30,7 +31,8 @@ public class PlaceOrderTest implements OrderDetailsRequestFixture {
         given()
                 .aNewOrderDetailsRequest("jdoe")
                 .placeOrder(placeOrder)
-                .theOrdersLifecyclerepository(ordersLifecycleRepository)
+                .theOrdersLifecycleRepository(ordersLifecycleRepository)
+                .theOrdersService(ordersService)
         .when()
                 .placingANewOrder()
         .then()
