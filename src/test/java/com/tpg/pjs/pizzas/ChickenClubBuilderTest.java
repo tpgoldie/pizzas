@@ -4,7 +4,8 @@ import com.tpg.pjs.pizzas.ingredients.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import static com.tpg.pjs.pizzas.Codes.CHICKEN_CLUB_CODE;
+import static com.tpg.pjs.ordering.OrderedItemType.PIZZA;
+import static com.tpg.pjs.pizzas.PizzaCode.CHICKEN_CLUB_CODE;
 import static com.tpg.pjs.pizzas.Pizza.Crustiness.DEEP_CRUST;
 import static com.tpg.pjs.pizzas.Pizza.Size.LARGE;
 import static com.tpg.pjs.pizzas.Pizza.Type.MEATS;
@@ -27,14 +28,15 @@ public class ChickenClubBuilderTest extends PizzaBuilderTest {
                                     .build();
 
         assertThat(actual)
-            .hasName("Chicken Club")
-            .hasCode(CHICKEN_CLUB_CODE.getValue())
-            .hasType(MEATS)
-            .hasSize(LARGE)
-            .hasDescription(DESCRIPTION)
-            .hasCrustiness(DEEP_CRUST)
-            .hasIngredients(Chicken.ingredient(), Bacon.ingredient(), Cheese.ingredient(),
-                    Onions.ingredient(), Tomatoes.ingredient())
-            .withStuffedCrust(true);
+                .hasName("Chicken Club")
+                .hasItemTypeCode(PIZZA.getCode())
+                .hasItemCode(CHICKEN_CLUB_CODE.getValue())
+                .hasType(MEATS)
+                .hasSize(LARGE)
+                .hasDescription(DESCRIPTION)
+                .hasCrustiness(DEEP_CRUST)
+                .hasIngredients(Chicken.ingredient(), Bacon.ingredient(), Cheese.ingredient(),
+                        Onions.ingredient(), Tomatoes.ingredient())
+                .withStuffedCrust(true);
     }
 }

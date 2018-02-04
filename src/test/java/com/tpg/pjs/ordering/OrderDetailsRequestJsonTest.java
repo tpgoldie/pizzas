@@ -7,11 +7,14 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.json.JsonTest;
 import org.springframework.boot.test.json.JacksonTester;
+import org.springframework.boot.test.json.JsonContent;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.List;
-
+import static com.tpg.pjs.ordering.Order.Status.PENDING;
+import static com.tpg.pjs.pizzas.Pizza.Crustiness.THIN_CRUST;
+import static com.tpg.pjs.pizzas.Pizza.Size.MEDIUM;
+import static com.tpg.pjs.pizzas.PizzaCode.AMERICAN_HOT_CODE;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
@@ -26,22 +29,29 @@ public class OrderDetailsRequestJsonTest implements OrderDetailsRequestFixture {
     @Before
     public void setUp() throws InvalidPizzaException {
 
-        request = newOrderDetailsRequest("jdoe");
+        request = orderAPizza("jdoe", "12/06/2016 12:31",
+                AMERICAN_HOT_CODE, MEDIUM, THIN_CRUST, 16.99, 2);
     }
 
     @Test
     public void serializeJson() throws Exception {
 
-        assertThat(tester.write(request))
+        JsonContent<OrderDetailsRequest> actual = tester.write(request);
+
+        assertThat(actual)
                 .extractingJsonPathStringValue("@.userId")
                     .isEqualTo(request.getUserId());
 
-        List<OrderItemDetails> items = request.getOrderItems();
+        assertThat(actual)
+            .extractingJsonPathStringValue("@.status")
+                .isEqualTo(PENDING.name());
 
-        OrderItemDetails[] expected = request.getOrderItems().toArray(new OrderItemDetails[items.size()]);
+        assertThat(actual)
+                .extractingJsonPathStringValue("@.dateOrdered")
+                .isEqualTo("12/06/2016 12:31");
 
-        assertThat(tester.write(request))
-            .extractingJsonPathArrayValue("@.orderItems")
+        assertThat(actual)
+            .extractingJsonPathArrayValue("@.orderedItems")
                 .isNotEmpty();
     }
 
@@ -50,6 +60,7 @@ public class OrderDetailsRequestJsonTest implements OrderDetailsRequestFixture {
 
         OrderDetailsRequest actual = tester.read(new ClassPathResource("json/orderDetailsRequest.json")).getObject();
 
-        OrderingAssertions.assertThat(actual).hasUserId(request.getUserId()).hasOrderItems(request.getOrderItems());
+        OrderingAssertions.assertThat(actual)
+                .hasUserId(request.getUserId()).hasOrderItems(request.getOrderedItems());
     }
 }

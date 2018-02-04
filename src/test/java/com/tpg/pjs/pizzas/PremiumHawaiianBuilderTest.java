@@ -4,7 +4,8 @@ import com.tpg.pjs.pizzas.ingredients.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import static com.tpg.pjs.pizzas.Codes.PREMIUM_HAWAIIAN_CODE;
+import static com.tpg.pjs.ordering.OrderedItemType.PIZZA;
+import static com.tpg.pjs.pizzas.PizzaCode.PREMIUM_HAWAIIAN_CODE;
 import static com.tpg.pjs.pizzas.Pizza.Crustiness.ORIGINAL;
 import static com.tpg.pjs.pizzas.Pizza.Size.SMALL;
 import static com.tpg.pjs.pizzas.Pizza.Type.MEATS;
@@ -27,7 +28,8 @@ public class PremiumHawaiianBuilderTest extends PizzaBuilderTest {
 
         assertThat(actual)
                 .hasName("Premium Hawaiian")
-                .hasCode(PREMIUM_HAWAIIAN_CODE.getValue())
+                .hasItemTypeCode(PIZZA.getCode())
+                .hasItemCode(PREMIUM_HAWAIIAN_CODE.getValue())
                 .hasType(MEATS)
                 .hasSize(SMALL)
                 .hasCrustiness(ORIGINAL)

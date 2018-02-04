@@ -13,9 +13,18 @@ public class OrderAssertion {
         this.actual = actual;
     }
 
+    public OrderAssertion hasUserId(String value) {
+
+        assertThat(actual.getUserId()).isEqualTo(value);
+
+        return this;
+    }
+
     public OrderAssertion hasOrderItems(List<OrderItem> value) {
 
-        assertThat(value).isEqualTo(actual.getItems());
+        assertThat(actual.getOrderedItems().size()).isEqualTo(value.size());
+
+        value.forEach(v -> assertThat(actual.getOrderedItems()).contains(v));
 
         return this;
     }

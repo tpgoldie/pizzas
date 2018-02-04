@@ -23,14 +23,14 @@ public class OrderDetailsRequestAssertion extends AbstractAssert<OrderDetailsReq
 
     public OrderDetailsRequestAssertion hasOrderItems(List<OrderItemDetails> value) {
 
-        Assert.assertEquals("order items do not match", value, actual.getOrderItems());
+        Assert.assertEquals("order items do not match", value, actual.getOrderedItems());
 
         return this;
     }
 
     public OrderDetailsRequestAssertion hasOrderStatus(Status value) {
 
-        Assert.assertEquals("order status does not match", value, actual.getOrderItems());
+        Assert.assertEquals("order status does not match", value, actual.getStatus());
 
         return this;
     }

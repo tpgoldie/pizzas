@@ -7,22 +7,22 @@ public class PizzasAssertions {
         return new AmericanHotAssertion(actual);
     }
 
-    static TheGreekAssertion assertThat(TheGreek actual) {
+    public static TheGreekAssertion assertThat(TheGreek actual) {
 
         return new TheGreekAssertion(actual);
     }
 
-    static PremiumHawaiianAssertion assertThat(PremiumHawaiian actual) {
+    public static PremiumHawaiianAssertion assertThat(PremiumHawaiian actual) {
 
         return new PremiumHawaiianAssertion(actual);
     }
 
-    static ChickenClubAssertion assertThat(ChickenClub actual) {
+    public static ChickenClubAssertion assertThat(ChickenClub actual) {
 
         return new ChickenClubAssertion(actual);
     }
 
-    static PapasFavouriteAssertion assertThat(PapasFavourite actual) {
+    public static PapasFavouriteAssertion assertThat(PapasFavourite actual) {
 
         return new PapasFavouriteAssertion(actual);
     }

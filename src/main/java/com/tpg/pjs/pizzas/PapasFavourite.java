@@ -2,7 +2,7 @@ package com.tpg.pjs.pizzas;
 
 import com.tpg.pjs.pizzas.ingredients.*;
 
-import static com.tpg.pjs.pizzas.Codes.PAPAS_FAVOURITE_CODE;
+import static com.tpg.pjs.pizzas.PizzaCode.PAPAS_FAVOURITE_CODE;
 import static com.tpg.pjs.pizzas.Pizza.Type.MEATS;
 
 public final class PapasFavourite extends Pizza {
@@ -20,7 +20,7 @@ public final class PapasFavourite extends Pizza {
 
             name("The Papa's Favourite");
 
-            code(PAPAS_FAVOURITE_CODE.getValue());
+            itemCode(PAPAS_FAVOURITE_CODE.getValue());
 
             validateCrustiness();
 

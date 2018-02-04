@@ -4,7 +4,7 @@ import com.tpg.pjs.pizzas.ingredients.Cheese;
 import com.tpg.pjs.pizzas.ingredients.JalapenoPeppers;
 import com.tpg.pjs.pizzas.ingredients.Pepperoni;
 
-import static com.tpg.pjs.pizzas.Codes.AMERICAN_HOT_CODE;
+import static com.tpg.pjs.pizzas.PizzaCode.AMERICAN_HOT_CODE;
 import static com.tpg.pjs.pizzas.Pizza.Type.MEATS;
 
 public final class AmericanHot extends Pizza {
@@ -21,7 +21,7 @@ public final class AmericanHot extends Pizza {
 
             name("American Hot");
 
-            code(AMERICAN_HOT_CODE.getValue());
+            itemCode(AMERICAN_HOT_CODE.getValue());
 
             validateCrustiness();
 

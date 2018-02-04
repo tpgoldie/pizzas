@@ -20,9 +20,9 @@ public abstract class PizzaAssertion<U extends Pizza> extends AbstractAssert<Piz
         super((U) actual, PizzaAssertion.class);
     }
 
-    PizzaAssertion hasCode(String value) {
+    public PizzaAssertion hasItemCode(String value) {
 
-        assertThat(actual.getCode()).isEqualTo(value);
+        assertThat(actual.getItemCode()).isEqualTo(value);
 
         return this;
     }
@@ -41,6 +41,13 @@ public abstract class PizzaAssertion<U extends Pizza> extends AbstractAssert<Piz
         return this;
     }
 
+    public PizzaAssertion hasItemTypeCode(String value) {
+
+        assertThat(actual.getItemTypeCode()).isEqualTo(value);
+
+        return this;
+    }
+
     public PizzaAssertion hasName(String value) {
 
         assertThat(actual.getName()).isEqualTo(value);
@@ -48,14 +55,14 @@ public abstract class PizzaAssertion<U extends Pizza> extends AbstractAssert<Piz
         return this;
     }
 
-    PizzaAssertion hasSize(Size value) {
+    public PizzaAssertion hasSize(Size value) {
 
         assertThat(actual.getSize()).isEqualTo(value);
 
         return this;
     }
 
-    PizzaAssertion hasCrustiness(Crustiness value) {
+    public PizzaAssertion hasCrustiness(Crustiness value) {
 
         assertThat(actual.getCrustiness()).isEqualTo(value);
 
@@ -69,7 +76,7 @@ public abstract class PizzaAssertion<U extends Pizza> extends AbstractAssert<Piz
         return this;
     }
 
-    PizzaAssertion hasIngredients(Ingredient... ingredients) {
+    public PizzaAssertion hasIngredients(Ingredient... ingredients) {
 
         Set<Ingredient> expectedValues = Arrays.stream(ingredients).collect(toSet());
 

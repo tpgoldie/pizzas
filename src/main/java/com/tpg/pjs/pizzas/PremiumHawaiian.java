@@ -2,7 +2,7 @@ package com.tpg.pjs.pizzas;
 
 import com.tpg.pjs.pizzas.ingredients.*;
 
-import static com.tpg.pjs.pizzas.Codes.PREMIUM_HAWAIIAN_CODE;
+import static com.tpg.pjs.pizzas.PizzaCode.PREMIUM_HAWAIIAN_CODE;
 import static com.tpg.pjs.pizzas.Pizza.Type.MEATS;
 
 public final class PremiumHawaiian extends Pizza {
@@ -21,7 +21,7 @@ public final class PremiumHawaiian extends Pizza {
 
             name("Premium Hawaiian");
 
-            code(PREMIUM_HAWAIIAN_CODE.getValue());
+            itemCode(PREMIUM_HAWAIIAN_CODE.getValue());
 
             return new PremiumHawaiian(this);
         }

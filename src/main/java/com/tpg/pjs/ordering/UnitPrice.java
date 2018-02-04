@@ -2,6 +2,7 @@ package com.tpg.pjs.ordering;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import org.apache.commons.lang.builder.EqualsBuilder;
 
 import java.math.BigDecimal;
 

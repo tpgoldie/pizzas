@@ -16,5 +16,6 @@ public class OrderDetailsRequest {
 
     private String userId;
     private Status status = PENDING;
-    private List<OrderItemDetails> orderItems;
+    private String dateOrdered;
+    private List<OrderItemDetails> orderedItems;
 }

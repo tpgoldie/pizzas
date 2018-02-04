@@ -7,7 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 @Getter
@@ -20,7 +20,7 @@ public class OrderEntity extends PjsEntity {
     private String userId;
 
     @Column(name = "order_placed")
-    private LocalDateTime orderPlaced;
+    private ZonedDateTime orderPlaced;
 
     @ManyToMany(mappedBy = "order")
     private List<OrderItemEntity> orderItems;

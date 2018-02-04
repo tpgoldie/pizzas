@@ -18,19 +18,6 @@ public abstract class Price implements Pricing {
     }
 
     @Override
-    public boolean equals(Object obj) {
-
-        if (obj == this) { return true; }
-        if (!(obj instanceof Price)) { return false; }
-
-        Price that = (Price) obj;
-
-        return new EqualsBuilder()
-                .append(that.price.equals(this.price), true)
-                .isEquals();
-    }
-
-    @Override
     public String toString() {
 
         return String.format("%.2f", price.doubleValue());

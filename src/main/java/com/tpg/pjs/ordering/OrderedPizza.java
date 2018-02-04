@@ -4,6 +4,7 @@ package com.tpg.pjs.ordering;
 import com.tpg.pjs.pizzas.Pizza;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import org.apache.commons.lang3.builder.EqualsBuilder;
 
 @Getter
 @EqualsAndHashCode(callSuper = true)

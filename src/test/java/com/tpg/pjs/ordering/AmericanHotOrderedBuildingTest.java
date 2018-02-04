@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 import static com.tpg.pjs.pizzas.Pizza.Crustiness.DEEP_CRUST;
 import static com.tpg.pjs.ordering.OrderingAssertions.assertThat;
 
-public class OrderedPizzaBuilderTest {
+public class AmericanHotOrderedBuildingTest {
 
     private OrderedPizza.Builder builder;
 

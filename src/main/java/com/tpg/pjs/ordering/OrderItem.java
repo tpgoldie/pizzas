@@ -2,12 +2,13 @@ package com.tpg.pjs.ordering;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import org.apache.commons.lang3.builder.EqualsBuilder;
 
 import java.math.BigDecimal;
 
 @Getter
 @EqualsAndHashCode
-public abstract class OrderItem {
+public abstract class OrderItem implements Orderable {
 
     private UnitPrice unitPrice;
 
@@ -30,7 +31,7 @@ public abstract class OrderItem {
         return String.format("%s @ %s", quantity, unitPrice);
     }
 
-    abstract static class Builder<T extends Builder<T>> {
+    abstract static class Builder<T extends Builder<T>> implements OrderableBuilding {
 
         private BigDecimal unitPrice;
 
@@ -49,8 +50,6 @@ public abstract class OrderItem {
 
             return self();
         }
-
-        public abstract OrderItem build();
 
         protected abstract T self();
 

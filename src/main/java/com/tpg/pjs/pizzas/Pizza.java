@@ -6,6 +6,7 @@ import lombok.Getter;
 
 import java.util.List;
 
+import static com.tpg.pjs.ordering.OrderedItemType.PIZZA;
 import static com.tpg.pjs.pizzas.Pizza.Crustiness.ORIGINAL;
 import static java.util.Arrays.stream;
 import static java.util.stream.Collectors.toList;
@@ -24,7 +25,9 @@ public abstract class Pizza implements WithStuffedCrust {
 
     private String name;
 
-    private String code;
+    private String itemTypeCode;
+
+    private String itemCode;
 
     private String description;
 
@@ -42,7 +45,9 @@ public abstract class Pizza implements WithStuffedCrust {
 
         this.name = builder.name;
 
-        this.code = builder.code;
+        this.itemTypeCode = builder.itemTypeCode;
+
+        this.itemCode = builder.itemCode;
 
         this.type = type;
 
@@ -70,7 +75,9 @@ public abstract class Pizza implements WithStuffedCrust {
 
         private String name;
 
-        private String code;
+        private String itemTypeCode = PIZZA.getCode();
+
+        private String itemCode;
 
         private String description;
 
@@ -80,9 +87,9 @@ public abstract class Pizza implements WithStuffedCrust {
 
         private boolean withStuffedCrust;
 
-        public T code(String value) {
+        public T itemCode(String value) {
 
-            this.code = value;
+            this.itemCode = value;
 
             return self();
         }
