@@ -20,7 +20,7 @@ public interface OrderDetailsRequestFixture extends OrderItemDetailsFixture {
 
         request.setDateOrdered(dateOrdered);
 
-        request.setOrderedItems(singletonList(newOrderItem(PIZZA.name(), pizzaCode.getValue(),
+        request.setOrderedItems(singletonList(newOrderItem(PIZZA.getCode(), pizzaCode.getValue(),
                 price, quantity, size.name(), crustiness.name(), true)));
 
         return request;

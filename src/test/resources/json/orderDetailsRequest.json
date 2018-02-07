@@ -1,1 +1,1 @@
-{"userId":"jdoe","itemTypeCode":"PZ","itemCode":"AH","status":"PENDING","dateOrdered":"12/06/2016 12:31","orderedItems":[{"itemTypeCode":"PIZZA","itemCode":"AH","price":16.99,"quantity":2,"size":"MEDIUM","crustiness":"THIN_CRUST","stuffedCrust":"true"}]}
+{"userId":"jdoe","itemTypeCode":"PZ","itemCode":"AH","status":"PENDING","dateOrdered":"12/06/2016 12:31","orderedItems":[{"itemTypeCode":"PZ","itemCode":"AH","price":16.99,"quantity":2,"size":"MEDIUM","crustiness":"THIN_CRUST","stuffedCrust":"true"}]}

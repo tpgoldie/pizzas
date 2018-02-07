@@ -1,19 +1,16 @@
 package com.tpg.pjs.ordering;
 
 
-import com.tpg.pjs.pizzas.InvalidPizzaException;
 import com.tpg.pjs.pizzas.Pizza;
-import com.tpg.pjs.pizzas.Pizza.Crustiness;
 import com.tpg.pjs.services.DateHandling;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
-import java.math.BigDecimal;
 import java.time.ZonedDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static com.tpg.pjs.ordering.OrderedItemBuilding.when;
 import static java.util.stream.Collectors.toList;
 
 @Getter
@@ -72,37 +69,21 @@ public class Order implements DateHandling {
 
         private Optional<OrderItem> toOrderItem(OrderItemDetails itemDetails) {
 
-            OrderedItemType orderedItemType = OrderedItemType.valueOf(itemDetails.getItemTypeCode());
+            return OrderedItemType.byCode(itemDetails.getItemTypeCode())
+                .flatMap(oit -> lookupBuilder(oit, itemDetails));
+        }
+
+        private Optional<OrderItem> lookupBuilder(OrderedItemType orderedItemType, OrderItemDetails itemDetails) {
 
             switch (orderedItemType) {
                 case PIZZA:
-                    return orderedPizzaBuilderSelector.select(itemDetails.getItemCode())
-                            .flatMap(pb -> buildOrderedPizza(pb, itemDetails));
+                    Optional<Pizza.Builder> pizzaBuilder = orderedPizzaBuilderSelector.select(itemDetails.getItemCode());
+                    return pizzaBuilder.flatMap(pb -> when(itemDetails.getItemTypeCode()).matchesPizza()
+                            .buildOrderedPizza(pb, itemDetails));
+
             }
 
             return Optional.empty();
-        }
-
-        private Optional<OrderItem> buildOrderedPizza(Pizza.Builder builder, OrderItemDetails itemDetails){
-            try {
-
-                Pizza pizza = builder
-                        .size(Pizza.Size.valueOf(itemDetails.getSize()))
-                        .crustiness(Crustiness.valueOf(itemDetails.getCrustiness()))
-                        .build();
-
-                OrderedPizza orderedPizza = new OrderedPizza.Builder()
-                        .pizza(pizza)
-                        .unitPrice(new BigDecimal(itemDetails.getPrice()))
-                        .quantity(itemDetails.getQuantity())
-                        .build();
-
-                return Optional.of(orderedPizza);
-
-            }
-            catch (InvalidPizzaException e) {
-                return Optional.empty();
-            }
         }
 
         public Order build() {
