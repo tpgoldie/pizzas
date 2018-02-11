@@ -3,11 +3,11 @@ package com.tpg.pjs;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 
-public class ServletInitializer extends SpringBootServletInitializer {
+public class WebServletInitializer extends SpringBootServletInitializer {
 
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-		return application.sources(PizzasApplication.class);
+		return application.sources(PjsApplication.class);
 	}
 
 }

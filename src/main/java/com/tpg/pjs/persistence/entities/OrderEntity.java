@@ -3,10 +3,7 @@ package com.tpg.pjs.persistence.entities;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.ZonedDateTime;
 import java.util.List;
 
@@ -14,6 +11,7 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "orders")
+@SequenceGenerator(name = "seq_generator", sequenceName = "pjs.orders_seq", allocationSize = 1)
 public class OrderEntity extends PjsEntity {
 
     @Column(name = "user_id")
@@ -22,6 +20,6 @@ public class OrderEntity extends PjsEntity {
     @Column(name = "order_placed")
     private ZonedDateTime orderPlaced;
 
-    @ManyToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order")
     private List<OrderItemEntity> orderItems;
 }

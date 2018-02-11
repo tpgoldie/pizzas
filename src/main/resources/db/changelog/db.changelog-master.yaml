@@ -1,0 +1,112 @@
+databaseChangeLog:
+  - preConditions:
+    - runningAs:
+        username: SA
+
+  - changeSet:
+      id: 1
+      author: goldingt
+      changes:
+        - sql:
+            comment: Create PJS Schema
+            dbms: postgresql
+            sql: CREATE SCHEMA IF NOT EXISTS PJS
+
+      id: 2
+      author: goldingt
+      changes:
+        - createTable:
+            schemaName: pjs
+            tableName: order_items
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  value: order_items_seq.nextval
+                  constraints:
+                    primaryKey: true
+                    unique: true
+                    nullable: false
+              - column:
+                  name: order_id
+                  type: int
+                  constraints:
+                    nullable: false
+                    unique: false
+              - column:
+                  name: item_type_code
+                  type: char(5)
+                  constraints:
+                    nullable: false
+                    unique: false
+              - column:
+                  name: item_code
+                  type: char(5)
+                  constraints:
+                    nullable: false
+                    unique: false
+              - column:
+                  name: price
+                  type: float
+                  constraints:
+                    nullable: false
+                    unique: false
+              - column:
+                  name: quantity
+                  type: int
+                  constraints:
+                    nullable: false
+                    unique: false
+              - column:
+                  name: size
+                  type: varchar(10)
+                  constraints:
+                    nullable: false
+                    unique: false
+              - column:
+                  name: crustiness
+                  type: varchar(10)
+                  constraints:
+                    nullable: false
+                    unique: false
+
+    id: 3
+    author: goldingt
+    changes:
+      - createTable:
+          schemaName: pjs
+          tableName: orders
+          columns:
+            - column:
+                name: id
+                type: int
+                value: orders_seq.nextval
+                constraints:
+                  primaryKey: true
+                  unique: true
+                  nullable: false
+            - column:
+                name: order_placed
+                type: datetime
+                constraints:
+                  unique: false
+                  nullable: false
+            - column:
+                name: user_id
+                type: varchar(10)
+                constraints:
+                  unique: false
+                  nullable: false
+
+    id: 4
+    author: goldingt
+    changes:
+      - createSequence:
+          schemaName: pjs
+          sequenceName: orders_seq
+          startValue: 1000
+
+      - createSequence:
+          schemaName: pjs
+          sequenceName: order_items_seq
+          startValue: 1000

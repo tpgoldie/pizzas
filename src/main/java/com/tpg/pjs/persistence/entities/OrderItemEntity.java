@@ -1,24 +1,20 @@
 package com.tpg.pjs.persistence.entities;
 
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "order_items")
-@EqualsAndHashCode(callSuper = true)
+@SequenceGenerator(name = "seq_generator", sequenceName = "pjs.order_items_seq", allocationSize = 1)
 public class OrderItemEntity extends PjsEntity {
 
-    @ManyToMany
+    @ManyToOne
     private OrderEntity order;
 
     @Column(name = "item_type_code")
