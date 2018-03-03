@@ -4,7 +4,6 @@ import com.tpg.pjs.ordering.*;
 import com.tpg.pjs.pizzas.InvalidPizzaException;
 import com.tpg.pjs.pizzas.Pizza;
 import com.tpg.pjs.ordering.OrderedPizzaBuilderSelector;
-import com.tpg.pjs.pizzas.PizzaCode;
 import org.junit.Before;
 import org.junit.Test;
 

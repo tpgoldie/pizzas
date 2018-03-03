@@ -2,6 +2,7 @@ package com.tpg.pjs.ordering;
 
 
 import com.tpg.pjs.ordering.Order.Status;
+import com.tpg.pjs.services.OrderDetailsRequest;
 import org.assertj.core.api.AbstractAssert;
 import org.junit.Assert;
 

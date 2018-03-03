@@ -1,11 +1,12 @@
 package com.tpg.pjs.services;
 
 import com.tpg.pjs.ordering.Order;
-import com.tpg.pjs.ordering.OrderDetailsRequest;
 import com.tpg.pjs.persistence.entities.OrderEntity;
 import com.tpg.pjs.persistence.repositories.OrdersLifecycleRepository;
 
-public class OrderingServiceImpl {
+import java.util.Optional;
+
+public class OrderingServiceImpl implements OrderingService {
 
     private final OrdersLifecycleRepository ordersLifecycleRepository;
 
@@ -32,7 +33,8 @@ public class OrderingServiceImpl {
         this.requestToDomainConverter = requestToDomainConverter;
     }
 
-    public void placeOrder(OrderDetailsRequest request) {
+    @Override
+    public Optional<OrderDetailsResponse> placeOrder(OrderDetailsRequest request) {
 
         OrderEntity orderEntity = requestToEntityConverter.convert(request);
 
@@ -40,6 +42,13 @@ public class OrderingServiceImpl {
 
         Order order = requestToDomainConverter.convert(request);
 
-        orderPlacement.placeOrder(order);
+        OrderDetailsStatus orderDetailsStatus = orderPlacement.placeOrder(order);
+
+        return orderDetailsStatus.matches(request)
+                ? Optional.of(OrderDetailsResponse.builder()
+                    .orderDetailsRequest(request)
+                    .orderId(orderDetailsStatus.getOrderId())
+                    .build())
+                : Optional.empty();
     }
 }

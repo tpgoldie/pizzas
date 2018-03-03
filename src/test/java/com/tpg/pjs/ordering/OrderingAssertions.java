@@ -2,6 +2,7 @@ package com.tpg.pjs.ordering;
 
 import com.tpg.pjs.persistence.entities.OrderEntity;
 import com.tpg.pjs.persistence.entities.OrderEntityAssertion;
+import com.tpg.pjs.services.OrderDetailsRequest;
 
 public class OrderingAssertions {
 

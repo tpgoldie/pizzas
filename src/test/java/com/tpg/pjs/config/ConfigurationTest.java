@@ -9,7 +9,7 @@ import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(
-    classes = { ApplicationConfig.class },
+    classes = { ApplicationConfig.class, WebAppConfig.class },
     loader = AnnotationConfigContextLoader.class
 )
 public class ConfigurationTest {

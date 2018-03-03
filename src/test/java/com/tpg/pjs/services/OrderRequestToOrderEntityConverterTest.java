@@ -1,13 +1,10 @@
 package com.tpg.pjs.services;
 
-import com.tpg.pjs.ordering.OrderDetailsRequest;
 import com.tpg.pjs.ordering.OrderDetailsRequestFixture;
 import com.tpg.pjs.persistence.entities.OrderEntity;
 import com.tpg.pjs.persistence.entities.OrderItemEntity;
 import com.tpg.pjs.persistence.entities.OrderItemEntityFixture;
 import com.tpg.pjs.pizzas.InvalidPizzaException;
-import com.tpg.pjs.pizzas.Pizza;
-import com.tpg.pjs.pizzas.PizzaCode;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -33,8 +30,8 @@ public class OrderRequestToOrderEntityConverterTest implements OrderDetailsReque
     @Test
     public void convertOrderRequestToOrderEntity() throws InvalidPizzaException {
 
-        OrderDetailsRequest request = orderAPizza("jdoe", "23/12/2016 12:15:30",
-                PAPAS_FAVOURITE_CODE, LARGE, DEEP_CRUST, 15.45, 1);
+        OrderDetailsRequest request = orderAPizza("jdoe","23/12/2016 12:15:30",
+                PAPAS_FAVOURITE_CODE, LARGE, DEEP_CRUST,15.45, 1);
 
 
         OrderEntity actual = converter.convert(request);

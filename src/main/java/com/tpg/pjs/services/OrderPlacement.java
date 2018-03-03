@@ -4,5 +4,5 @@ import com.tpg.pjs.ordering.Order;
 
 public interface OrderPlacement {
 
-    void placeOrder(Order order);
+    OrderDetailsStatus placeOrder(Order order);
 }

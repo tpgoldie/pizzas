@@ -1,7 +1,6 @@
 package com.tpg.pjs.services;
 
 import com.tpg.pjs.ordering.Order;
-import com.tpg.pjs.ordering.OrderDetailsRequest;
 
 public class OrderRequestToOrderDomainConverter implements RequestToDomainConverter {
 

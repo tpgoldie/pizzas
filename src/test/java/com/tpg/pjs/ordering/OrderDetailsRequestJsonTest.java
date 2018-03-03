@@ -1,6 +1,7 @@
 package com.tpg.pjs.ordering;
 
 import com.tpg.pjs.pizzas.InvalidPizzaException;
+import com.tpg.pjs.services.OrderDetailsRequest;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

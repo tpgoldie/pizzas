@@ -2,7 +2,6 @@ package com.tpg.pjs.services;
 
 import com.tpg.pjs.ordering.Order;
 import com.tpg.pjs.ordering.Order.Status;
-import com.tpg.pjs.ordering.OrderDetailsRequest;
 import com.tpg.pjs.ordering.OrderDetailsRequestFixture;
 import com.tpg.pjs.ordering.OrderedPizzaFixture;
 import com.tpg.pjs.persistence.entities.OrderEntity;
