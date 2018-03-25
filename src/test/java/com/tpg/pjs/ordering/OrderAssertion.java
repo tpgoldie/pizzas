@@ -20,6 +20,13 @@ public class OrderAssertion {
         return this;
     }
 
+    public OrderAssertion hasSessionId(String value) {
+
+        assertThat(actual.getSessionId()).isEqualTo(value);
+
+        return this;
+    }
+
     public OrderAssertion hasOrderItems(List<OrderItem> value) {
 
         assertThat(actual.getOrderedItems().size()).isEqualTo(value.size());

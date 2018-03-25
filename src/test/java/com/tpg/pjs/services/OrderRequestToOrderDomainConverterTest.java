@@ -36,8 +36,9 @@ public class OrderRequestToOrderDomainConverterTest implements OrderDetailsReque
     @Test
     public void convertOrderRequestToOrderDomain() throws InvalidPizzaException {
 
-        OrderDetailsRequest request = orderAPizza("jdoe", "23/12/2016 12:15:30",
-                PAPAS_FAVOURITE_CODE, LARGE, DEEP_CRUST, 16.99, 2, PENDING);
+        OrderDetailsRequest request = orderAPizza("jdoe", generateString(5),
+                "23/12/2016 12:15:30", PAPAS_FAVOURITE_CODE, LARGE, DEEP_CRUST,
+                16.99, 2, PENDING);
 
         Order actual = converter.convert(request);
 
@@ -45,7 +46,9 @@ public class OrderRequestToOrderDomainConverterTest implements OrderDetailsReque
                 .map(this::newOrderItem).filter(Optional::isPresent)
                 .map(Optional::get).collect(toList());
 
-        assertThat(actual).hasUserId(request.getUserId())
+        assertThat(actual)
+                .hasUserId(request.getUserId())
+                .hasSessionId(request.getSessionId())
                 .hasOrderItems(orderedItems);
     }
 

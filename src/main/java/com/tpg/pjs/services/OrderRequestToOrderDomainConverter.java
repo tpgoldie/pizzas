@@ -9,6 +9,7 @@ public class OrderRequestToOrderDomainConverter implements RequestToDomainConver
 
         return new Order.Builder()
                 .userId(request.getUserId())
+                .sessionId(request.getSessionId())
                 .dateOrdered(request.getDateOrdered())
                 .itemsOrdered(request.getOrderedItems())
                 .build();

@@ -13,7 +13,7 @@ import static com.tpg.pjs.ordering.Order.Status.PENDING;
 import static com.tpg.pjs.pizzas.Pizza.Crustiness.ORIGINAL;
 import static com.tpg.pjs.pizzas.Pizza.Size.SMALL;
 import static com.tpg.pjs.pizzas.PizzaCode.PAPAS_FAVOURITE_CODE;
-import static com.tpg.pjs.services.PlacingOrders.given;
+import static com.tpg.pjs.services.PlacingAnOrder.given;
 
 @RunWith(MockitoJUnitRunner.class)
 public class PlaceOrderTest implements OrderDetailsRequestFixture {
@@ -35,17 +35,20 @@ public class PlaceOrderTest implements OrderDetailsRequestFixture {
     @Test
     public void placeOrder_orderDetails_shouldPlaceNewOrder() throws InvalidPizzaException {
 
+        String sessionId = generateString(5);
+
         given()
-            .orderDetailsRequest("jdoe", "12/10/2017 16:57:45", PAPAS_FAVOURITE_CODE, SMALL, ORIGINAL,
+            .orderDetailsRequest("jdoe", sessionId,"12/10/2017 16:57:45", PAPAS_FAVOURITE_CODE, SMALL, ORIGINAL,
                     16.45, 2)
             .orderPlacement(orderPlacement)
             .theOrdersLifecycleRepository(ordersLifecycleRepository)
             .ordersService(orderingService)
         .when()
-            .placingANewOrder()
+            .placingAnOrder()
         .then()
             .theOrderIsPlaced(SMALL, ORIGINAL,16.45, 2)
             .theOrderIsSaved()
+            .theOrderStatusSessionIdIs(sessionId)
             .theOrderStatusIs(PENDING);
     }
 }

@@ -31,8 +31,9 @@ public class OrderRequestToOrderEntityConverterTest implements OrderDetailsReque
     @Test
     public void convertOrderRequestToOrderEntity() throws InvalidPizzaException {
 
-        OrderDetailsRequest request = orderAPizza("jdoe","23/12/2016 12:15:30",
-                PAPAS_FAVOURITE_CODE, LARGE, DEEP_CRUST,15.45, 1, PENDING);
+        OrderDetailsRequest request = orderAPizza("jdoe", generateString(5),
+                "23/12/2016 12:15:30", PAPAS_FAVOURITE_CODE, LARGE, DEEP_CRUST,
+                15.45, 1, PENDING);
 
 
         OrderEntity actual = converter.convert(request);

@@ -25,51 +25,52 @@ import static com.tpg.pjs.ordering.OrderingAssertions.assertThat;
 import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
 import static java.util.stream.Collectors.toList;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.verify;
 
-public class PlacingOrders implements OrderDetailsRequestFixture, OrderedPizzaFixture,
+public class PlacingAnOrder implements OrderDetailsRequestFixture, OrderedPizzaFixture,
         OrderEntityFixture, OrderItemEntityFixture {
 
-    public static PlacingOrders given() {
+    public static PlacingAnOrder given() {
 
-        return new PlacingOrders();
+        return new PlacingAnOrder();
     }
 
-    public PlacingOrders when() {
+    public PlacingAnOrder when() {
 
         return this;
     }
 
-    public PlacingOrders orderDetailsRequest(String userId, String datetime, PizzaCode pizzaCode, Size size,
-                                             Crustiness crustiness, double price, int quantity) throws InvalidPizzaException {
+    public PlacingAnOrder orderDetailsRequest(String userId, String sessionId, String datetime, PizzaCode pizzaCode, Size size,
+                                              Crustiness crustiness, double price, int quantity) throws InvalidPizzaException {
 
-        request = orderAPizza(userId, datetime, pizzaCode, size, crustiness, price, quantity, PENDING);
+        request = orderAPizza(userId, sessionId, datetime, pizzaCode, size, crustiness, price, quantity, PENDING);
 
         return this;
     }
 
-    public PlacingOrders orderPlacement(OrderPlacement orderPlacement) {
+    public PlacingAnOrder orderPlacement(OrderPlacement orderPlacement) {
 
         this.orderPlacement = orderPlacement;
 
         return this;
     }
 
-    public PlacingOrders theOrdersLifecycleRepository(OrdersLifecycleRepository ordersLifecycleRepository) {
+    public PlacingAnOrder theOrdersLifecycleRepository(OrdersLifecycleRepository ordersLifecycleRepository) {
 
         this.ordersLifecycleRepository = ordersLifecycleRepository;
 
         return this;
     }
 
-    public PlacingOrders ordersService(OrderingServiceImpl ordersService) {
+    public PlacingAnOrder ordersService(OrderingServiceImpl ordersService) {
 
         this.ordersService = ordersService;
 
         return this;
     }
 
-    public PlacingOrders placingANewOrder() {
+    public PlacingAnOrder placingAnOrder() {
 
         OrderDetailsStatus orderStatusDetails = OrderDetailsStatus
                 .builder()
@@ -88,12 +89,12 @@ public class PlacingOrders implements OrderDetailsRequestFixture, OrderedPizzaFi
         return this;
     }
 
-    public PlacingOrders then() {
+    public PlacingAnOrder then() {
 
         return this;
     }
 
-    public PlacingOrders theOrderIsPlaced(Size size, Crustiness crustiness, double price, int quantity) throws InvalidPizzaException {
+    public PlacingAnOrder theOrderIsPlaced(Size size, Crustiness crustiness, double price, int quantity) throws InvalidPizzaException {
 
         verify(orderPlacement).placeOrder(orderArgumentCaptor.capture());
 
@@ -104,7 +105,7 @@ public class PlacingOrders implements OrderDetailsRequestFixture, OrderedPizzaFi
         return this;
     }
 
-    public PlacingOrders theOrderIsSaved() {
+    public PlacingAnOrder theOrderIsSaved() {
 
         verify(ordersLifecycleRepository).save(orderEntityArgumentCaptor.capture());
 
@@ -126,9 +127,16 @@ public class PlacingOrders implements OrderDetailsRequestFixture, OrderedPizzaFi
         return this;
     }
 
-    public PlacingOrders theOrderStatusIs(Status value) {
+    PlacingAnOrder theOrderStatusIs(Status value) {
 
         assertThat(request).hasOrderStatus(value);
+
+        return this;
+    }
+
+    PlacingAnOrder theOrderStatusSessionIdIs(String value) {
+
+        assertEquals("Order status ession id does not match", value, request.getSessionId());
 
         return this;
     }

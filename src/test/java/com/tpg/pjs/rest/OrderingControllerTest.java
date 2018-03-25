@@ -63,8 +63,8 @@ public class OrderingControllerTest implements OrderDetailsRequestFixture {
     @WithMockUser(username = "pjs", password = "pjs", roles = {"PJS_GUEST"})
     public void placeOrder_orderRequest_shouldHandlePlacedOrder() throws Exception {
 
-        OrderDetailsRequest orderRequest = orderAPizza("pjs", "12/03/2017 20:19",
-                CHICKEN_CLUB_CODE, LARGE, ORIGINAL, 15.99, 2, PENDING);
+        OrderDetailsRequest orderRequest = orderAPizza("pjs", generateString(5),
+                "12/03/2017 20:19", CHICKEN_CLUB_CODE, LARGE, ORIGINAL, 15.99, 2, PENDING);
 
         OrderDetailsResponse orderResponse = OrderDetailsResponse.builder()
                 .userId(orderRequest.getUserId())

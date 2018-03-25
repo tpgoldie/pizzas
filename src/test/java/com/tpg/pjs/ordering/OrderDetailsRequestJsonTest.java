@@ -30,7 +30,7 @@ public class OrderDetailsRequestJsonTest implements OrderDetailsRequestFixture {
     @Before
     public void setUp() throws InvalidPizzaException {
 
-        request = orderAPizza("jdoe", "12/06/2016 12:31",
+        request = orderAPizza("jdoe", generateString(5),"12/06/2016 12:31",
                 AMERICAN_HOT_CODE, MEDIUM, THIN_CRUST, 16.99, 2, PENDING);
     }
 
@@ -42,6 +42,10 @@ public class OrderDetailsRequestJsonTest implements OrderDetailsRequestFixture {
         assertThat(actual)
                 .extractingJsonPathStringValue("@.userId")
                     .isEqualTo(request.getUserId());
+
+        assertThat(actual)
+            .extractingJsonPathStringValue("@.sessionId")
+                .isEqualTo(request.getSessionId());
 
         assertThat(actual)
             .extractingJsonPathStringValue("@.status")

@@ -21,6 +21,8 @@ public class Order implements DateHandling {
 
     private String userId;
 
+    private String sessionId;
+
     private ZonedDateTime dateOrdered;
 
     private List<OrderItem> orderedItems;
@@ -28,6 +30,8 @@ public class Order implements DateHandling {
     Order(Builder builder) {
 
         userId = builder.userId;
+
+        sessionId = builder.sessionId;
 
         dateOrdered = toZonedDateTime(builder.dateOrdered);
 
@@ -38,6 +42,8 @@ public class Order implements DateHandling {
 
         private String userId;
 
+        private String sessionId;
+
         private String dateOrdered;
 
         private List<OrderItem> orderedItems;
@@ -47,6 +53,13 @@ public class Order implements DateHandling {
         public Builder userId(String value) {
 
             this.userId = value;
+
+            return this;
+        }
+
+        public Builder sessionId(String value) {
+
+            this.sessionId = value;
 
             return this;
         }

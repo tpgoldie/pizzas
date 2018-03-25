@@ -19,7 +19,7 @@ public class OrderDetailsStatusTest implements OrderDetailsRequestFixture, Strin
     @Test
     public void matchesRequest_matchingOrderDetailsRequest_shouldReturnTrue() throws InvalidPizzaException {
 
-        OrderDetailsRequest request = orderAPizza("jdoe", "12/08/2017 18:34", CHICKEN_CLUB_CODE,
+        OrderDetailsRequest request = orderAPizza("jdoe", generateString(5), "12/08/2017 18:34", CHICKEN_CLUB_CODE,
                 MEDIUM, DEEP_CRUST, 17.99, 3, PENDING);
 
         OrderDetailsStatus orderDetailsStatus = OrderDetailsStatus.builder()
