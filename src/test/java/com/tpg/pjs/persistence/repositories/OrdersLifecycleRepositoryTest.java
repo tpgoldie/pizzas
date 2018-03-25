@@ -4,7 +4,6 @@ import com.tpg.pjs.persistence.entities.OrderEntity;
 import com.tpg.pjs.persistence.entities.OrderEntityFixture;
 import com.tpg.pjs.persistence.entities.OrderItemEntity;
 import com.tpg.pjs.persistence.entities.OrderItemEntityFixture;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
