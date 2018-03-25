@@ -36,10 +36,11 @@ public class PlaceOrderTest implements OrderDetailsRequestFixture {
     public void placeOrder_orderDetails_shouldPlaceNewOrder() throws InvalidPizzaException {
 
         given()
-            .aNewOrderDetailsRequest("jdoe", "12/10/2017 16:57:45", PAPAS_FAVOURITE_CODE, SMALL, ORIGINAL, 16.45, 2)
-            .placeOrder(orderPlacement)
+            .orderDetailsRequest("jdoe", "12/10/2017 16:57:45", PAPAS_FAVOURITE_CODE, SMALL, ORIGINAL,
+                    16.45, 2)
+            .orderPlacement(orderPlacement)
             .theOrdersLifecycleRepository(ordersLifecycleRepository)
-            .theOrdersService(orderingService)
+            .ordersService(orderingService)
         .when()
             .placingANewOrder()
         .then()

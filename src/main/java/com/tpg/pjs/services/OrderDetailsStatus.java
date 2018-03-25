@@ -4,6 +4,7 @@ import com.tpg.pjs.ordering.Order;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import org.apache.commons.lang3.builder.EqualsBuilder;
 
 @Getter
 @EqualsAndHashCode
@@ -16,6 +17,11 @@ public final class OrderDetailsStatus {
     private final Order.Status orderStatus;
 
     public boolean matches(OrderDetailsRequest request) {
-        return false;
+
+        return new EqualsBuilder()
+                .append(request.getUserId(), userId)
+                .append(request.getSessionId(), sessionId)
+                .append(request.getStatus(), orderStatus)
+                .isEquals();
     }
 }

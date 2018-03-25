@@ -5,11 +5,12 @@ import com.tpg.pjs.services.OrderDetailsResponse;
 import com.tpg.pjs.services.OrderingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
 import java.util.Optional;
+
+import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE;
 
 @RestController
 @RequestMapping("/pjs")
@@ -23,7 +24,7 @@ public class OrderingController {
         this.orderingService = orderingService;
     }
 
-    @PostMapping("orders")
+    @PostMapping(value = "/orders", consumes = APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
     @RolesAllowed({"ROLE_PJS_GUEST", "ROLE_PJS_USER"})
     public ResponseEntity<OrderDetailsResponse> placeOrder(@RequestBody OrderDetailsRequest orderDetailsRequest) {

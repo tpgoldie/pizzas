@@ -16,24 +16,18 @@ import static org.junit.Assert.assertEquals;
 
 public class OrderDetailsStatusTest implements OrderDetailsRequestFixture, StringGeneration {
 
-    private OrderDetailsStatus orderDetailsStatus;
-
-    @Before
-    public void setUp() {
-
-        orderDetailsStatus = OrderDetailsStatus.builder()
-                .orderId(generateString(5))
-                .sessionId(generateString(10))
-                .orderStatus(PENDING)
-                .build();
-    }
-
     @Test
     public void matchesRequest_matchingOrderDetailsRequest_shouldReturnTrue() throws InvalidPizzaException {
 
         OrderDetailsRequest request = orderAPizza("jdoe", "12/08/2017 18:34", CHICKEN_CLUB_CODE,
-                MEDIUM, DEEP_CRUST, 17.99, 3);
+                MEDIUM, DEEP_CRUST, 17.99, 3, PENDING);
 
+        OrderDetailsStatus orderDetailsStatus = OrderDetailsStatus.builder()
+                .userId("jdoe")
+                .orderId(generateString(5))
+                .sessionId(request.getSessionId())
+                .orderStatus(PENDING)
+                .build();
         assertEquals("Order details status does not match order details request",
                 true, orderDetailsStatus.matches(request));
 

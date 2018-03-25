@@ -14,11 +14,13 @@ import com.tpg.pjs.pizzas.Pizza.Crustiness;
 import com.tpg.pjs.pizzas.Pizza.Size;
 import com.tpg.pjs.pizzas.PizzaCode;
 import org.mockito.ArgumentCaptor;
+import org.mockito.Mockito;
 
 import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 import java.util.List;
 
+import static com.tpg.pjs.ordering.Order.Status.PENDING;
 import static com.tpg.pjs.ordering.OrderingAssertions.assertThat;
 import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
@@ -33,32 +35,20 @@ public class PlacingOrders implements OrderDetailsRequestFixture, OrderedPizzaFi
         return new PlacingOrders();
     }
 
-    private OrderDetailsRequest request;
-
-    private OrderPlacement orderPlacement;
-
-    private OrdersLifecycleRepository ordersLifecycleRepository;
-
-    private OrderingServiceImpl ordersService;
-
-    private ArgumentCaptor<Order> orderArgumentCaptor = ArgumentCaptor.forClass(Order.class);
-
-    private ArgumentCaptor<OrderEntity> orderEntityArgumentCaptor = ArgumentCaptor.forClass(OrderEntity.class);
-
     public PlacingOrders when() {
 
         return this;
     }
 
-    public PlacingOrders aNewOrderDetailsRequest(String userId, String datetime, PizzaCode pizzaCode, Size size,
-                                                 Crustiness crustiness, double price, int quantity) throws InvalidPizzaException {
+    public PlacingOrders orderDetailsRequest(String userId, String datetime, PizzaCode pizzaCode, Size size,
+                                             Crustiness crustiness, double price, int quantity) throws InvalidPizzaException {
 
-        request = orderAPizza(userId, datetime, pizzaCode, size, crustiness, price, quantity);
+        request = orderAPizza(userId, datetime, pizzaCode, size, crustiness, price, quantity, PENDING);
 
         return this;
     }
 
-    public PlacingOrders placeOrder(OrderPlacement orderPlacement) {
+    public PlacingOrders orderPlacement(OrderPlacement orderPlacement) {
 
         this.orderPlacement = orderPlacement;
 
@@ -72,16 +62,28 @@ public class PlacingOrders implements OrderDetailsRequestFixture, OrderedPizzaFi
         return this;
     }
 
-    public PlacingOrders placingANewOrder() {
+    public PlacingOrders ordersService(OrderingServiceImpl ordersService) {
 
-        ordersService.placeOrder(request);
+        this.ordersService = ordersService;
 
         return this;
     }
 
-    public PlacingOrders theOrdersService(OrderingServiceImpl ordersService) {
+    public PlacingOrders placingANewOrder() {
 
-        this.ordersService = ordersService;
+        OrderDetailsStatus orderStatusDetails = OrderDetailsStatus
+                .builder()
+                    .userId(request.getUserId())
+                    .orderStatus(PENDING)
+                    .sessionId(request.getSessionId())
+                    .orderId(generateString(5))
+                .build();
+
+        Order order = requestConverter.convert(request);
+
+        Mockito.when(orderPlacement.placeOrder(order)).thenReturn(orderStatusDetails);
+
+        ordersService.placeOrder(request);
 
         return this;
     }
@@ -130,4 +132,18 @@ public class PlacingOrders implements OrderDetailsRequestFixture, OrderedPizzaFi
 
         return this;
     }
+
+    private OrderDetailsRequest request;
+
+    private OrderPlacement orderPlacement;
+
+    private final OrderRequestToOrderDomainConverter requestConverter = new OrderRequestToOrderDomainConverter();
+
+    private OrdersLifecycleRepository ordersLifecycleRepository;
+
+    private OrderingServiceImpl ordersService;
+
+    private ArgumentCaptor<Order> orderArgumentCaptor = ArgumentCaptor.forClass(Order.class);
+
+    private ArgumentCaptor<OrderEntity> orderEntityArgumentCaptor = ArgumentCaptor.forClass(OrderEntity.class);
 }

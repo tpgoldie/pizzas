@@ -31,7 +31,7 @@ public class OrderDetailsRequestJsonTest implements OrderDetailsRequestFixture {
     public void setUp() throws InvalidPizzaException {
 
         request = orderAPizza("jdoe", "12/06/2016 12:31",
-                AMERICAN_HOT_CODE, MEDIUM, THIN_CRUST, 16.99, 2);
+                AMERICAN_HOT_CODE, MEDIUM, THIN_CRUST, 16.99, 2, PENDING);
     }
 
     @Test

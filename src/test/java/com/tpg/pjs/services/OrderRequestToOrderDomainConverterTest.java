@@ -11,6 +11,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
+import static com.tpg.pjs.ordering.Order.Status.PENDING;
 import static com.tpg.pjs.ordering.OrderingAssertions.assertThat;
 import static com.tpg.pjs.pizzas.Pizza.*;
 import static com.tpg.pjs.pizzas.Pizza.Crustiness.DEEP_CRUST;
@@ -36,7 +37,7 @@ public class OrderRequestToOrderDomainConverterTest implements OrderDetailsReque
     public void convertOrderRequestToOrderDomain() throws InvalidPizzaException {
 
         OrderDetailsRequest request = orderAPizza("jdoe", "23/12/2016 12:15:30",
-                PAPAS_FAVOURITE_CODE, LARGE, DEEP_CRUST, 16.99, 2);
+                PAPAS_FAVOURITE_CODE, LARGE, DEEP_CRUST, 16.99, 2, PENDING);
 
         Order actual = converter.convert(request);
 

@@ -11,6 +11,7 @@ import org.junit.Test;
 import java.math.BigDecimal;
 import java.util.List;
 
+import static com.tpg.pjs.ordering.Order.Status.PENDING;
 import static com.tpg.pjs.ordering.OrderingAssertions.assertThat;
 import static com.tpg.pjs.pizzas.Pizza.Crustiness.DEEP_CRUST;
 import static com.tpg.pjs.pizzas.Pizza.Size.LARGE;
@@ -31,7 +32,7 @@ public class OrderRequestToOrderEntityConverterTest implements OrderDetailsReque
     public void convertOrderRequestToOrderEntity() throws InvalidPizzaException {
 
         OrderDetailsRequest request = orderAPizza("jdoe","23/12/2016 12:15:30",
-                PAPAS_FAVOURITE_CODE, LARGE, DEEP_CRUST,15.45, 1);
+                PAPAS_FAVOURITE_CODE, LARGE, DEEP_CRUST,15.45, 1, PENDING);
 
 
         OrderEntity actual = converter.convert(request);

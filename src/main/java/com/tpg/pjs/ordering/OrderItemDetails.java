@@ -1,5 +1,6 @@
 package com.tpg.pjs.ordering;
 
+import com.tpg.pjs.ordering.Order.Status;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,6 +12,7 @@ public class OrderItemDetails {
 
     private String itemTypeCode;
     private String itemCode;
+    private Status status;
     private double price;
     private int quantity;
     private String size;
