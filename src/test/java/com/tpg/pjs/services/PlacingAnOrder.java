@@ -23,6 +23,7 @@ import java.util.List;
 import static com.tpg.pjs.ordering.Order.Status.PENDING;
 import static com.tpg.pjs.ordering.OrderingAssertions.assertThat;
 import static java.util.Arrays.asList;
+import static java.util.Collections.emptyList;
 import static java.util.Collections.singletonList;
 import static java.util.stream.Collectors.toList;
 import static org.junit.Assert.assertEquals;
@@ -111,7 +112,7 @@ public class PlacingAnOrder implements OrderDetailsRequestFixture, OrderedPizzaF
 
         OrderEntity actual = orderEntityArgumentCaptor.getValue();
 
-        OrderEntity orderEntity = newOrderEntity(request.getUserId(), ZonedDateTime.now());
+        OrderEntity orderEntity = newOrderEntity(request.getUserId(), request.getSessionId(), ZonedDateTime.now(), emptyList());
 
         List<OrderItemEntity> orderItemEntities = request.getOrderedItems().stream()
                 .map(value -> newOrderItemEntity(orderEntity, value.getItemTypeCode(),

@@ -17,6 +17,9 @@ public class OrderEntity extends PjsEntity {
     @Column(name = "user_id")
     private String userId;
 
+    @Column(name = "session_id")
+    private String sessionId;
+
     @Column(name = "order_placed")
     private ZonedDateTime orderPlaced;
 
