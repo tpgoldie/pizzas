@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import static com.tpg.pjs.ordering.Order.Status.PENDING;
 
 @Service
-public class OrderPlacementImpl implements OrderPlacement {
+public class OrderPlacer implements OrderPlacement {
 
     @Override
     public OrderDetailsStatus placeOrder(Order order) {
@@ -23,7 +23,7 @@ public class OrderPlacementImpl implements OrderPlacement {
     }
 
     @Autowired
-    public OrderPlacementImpl(OrderIdGeneration orderIdGeneration, OrderProcessing orderProcessing) {
+    public OrderPlacer(OrderIdGeneration orderIdGeneration, OrderProcessing orderProcessing) {
 
         this.orderIdGeneration = orderIdGeneration;
 

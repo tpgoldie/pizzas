@@ -2,15 +2,19 @@ package com.tpg.pjs.services;
 
 import com.tpg.pjs.StringGeneration;
 import com.tpg.pjs.ordering.Order;
-import com.tpg.pjs.ordering.Order.Status;
+import org.activiti.engine.RuntimeService;
+import org.activiti.engine.runtime.ProcessInstance;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.verify;
 
 class ProcessingAnOrder implements StringGeneration {
-
-    private OrderIdGeneration orderIdGeneration;
 
     static ProcessingAnOrder given() {
 
@@ -19,71 +23,64 @@ class ProcessingAnOrder implements StringGeneration {
 
     private ProcessingAnOrder() {}
 
-    ProcessingAnOrder orderProcessing(OrderProcessing orderProcessing) {
+    ProcessingAnOrder orderProcessor(OrderProcessor orderProcessor) {
 
-        this.orderProcessing = orderProcessing;
-
-        return this;
-    }
-
-    ProcessingAnOrder orderPlacement(OrderPlacementImpl orderPlacement) {
-
-        this.orderPlacement = orderPlacement;
+        this.orderProcessor = orderProcessor;
 
         return this;
     }
 
-    ProcessingAnOrder orderIdGeneration(OrderIdGeneration orderIdGeneration) {
+    ProcessingAnOrder runtimeService(RuntimeService runtimeService) {
 
-        this.orderIdGeneration = orderIdGeneration;
-
-        return this;
-    }
-
-    ProcessingAnOrder when() {
+        this.runtimeService = runtimeService;
 
         return this;
     }
 
-    ProcessingAnOrder placingAnOrder(Order order) {
+    ProcessingAnOrder processInstance(ProcessInstance processInstance) {
 
-        this.order = order;
-
-        Mockito.when(orderIdGeneration.generateId()).thenReturn(generateString(5));
-
-        actual = orderPlacement.placeOrder(order);
+        this.processInstance = processInstance;
 
         return this;
     }
 
-    ProcessingAnOrder then() {
+    ProcessingAnOrder when() { return this; }
+
+    ProcessingAnOrder processingAnOrder(Order order) {
+
+        newOrder = order;
+
+        Map<String, Object> mapping = new HashMap<>();
+        mapping.put("newOrder", order);
+
+        Mockito.when(runtimeService.startProcessInstanceByKey("PlaceOrder", mapping)).thenReturn(processInstance);
+
+        Mockito.when(processInstance.getName()).thenReturn(generateString(5));
+
+        orderProcessor.startProcessing(order);
 
         return this;
     }
 
-    ProcessingAnOrder aNewOrderProcessIsStarted() {
+    ProcessingAnOrder then() { return this; }
 
-        verify(orderProcessing).startProcessing(order);
+    ProcessingAnOrder startANewProcessInstance() {
 
+        ArgumentCaptor<Map> argumentCaptor = ArgumentCaptor.forClass(Map.class);
+
+        verify(runtimeService).startProcessInstanceByKey(eq("PlaceOrder"), argumentCaptor.capture());
+
+        Map<String, Object> actual = argumentCaptor.getValue();
+
+        Order order = (Order) actual.get("newOrder");
+
+        assertEquals("Order not set in process instance", newOrder, order);
         return this;
     }
 
-    ProcessingAnOrder orderDetailsStatusIs(Status value) {
+    private OrderProcessor orderProcessor;
+    private Order newOrder;
 
-        assertEquals(value, actual.getOrderStatus());
-
-        return this;
-    }
-
-    ProcessingAnOrder aNewOrderIdGenerated() {
-
-        verify(orderIdGeneration).generateId();
-
-        return this;
-    }
-
-    private OrderProcessing orderProcessing;
-    private OrderPlacementImpl orderPlacement;
-    private Order order;
-    private OrderDetailsStatus actual;
+    private RuntimeService runtimeService;
+    private ProcessInstance processInstance;
 }
