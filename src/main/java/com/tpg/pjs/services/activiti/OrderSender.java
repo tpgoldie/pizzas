@@ -1,7 +1,6 @@
 package com.tpg.pjs.services.activiti;
 
 import com.tpg.pjs.ordering.Order;
-import com.tpg.pjs.ordering.Order.Status;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,37 +10,39 @@ import org.springframework.jms.core.MessageCreator;
 import org.springframework.stereotype.Component;
 
 import static com.tpg.pjs.config.ActiveMQConfig.ORDER_QUEUE;
-import static com.tpg.pjs.ordering.Order.Status.ACCEPTED;
+import static com.tpg.pjs.config.ActiveMQConfig.ORDER_STATUS_QUEUE;
 
 @Component
 public class OrderSender implements OrderAcceptance {
 
     @Autowired
-    public OrderSender(JmsTemplate jmsTemplate) {
+    public OrderSender(JmsTemplate ordersJmsTemplate, JmsTemplate ordersStatusJmsTemplate) {
 
-        this(jmsTemplate, null);
+        this(ordersJmsTemplate, ordersStatusJmsTemplate, null);
     }
 
-    OrderSender(JmsOperations jmsOperations, MessageCreator messageCreator) {
+    OrderSender(JmsOperations ordersQueue, JmsOperations ordersStatusQueue, MessageCreator messageCreator) {
 
-        this.jmsOperations = jmsOperations;
+        this.ordersQueue = ordersQueue;
+
+        this.ordersStatusQueue = ordersStatusQueue;
 
         this.messageCreator = messageCreator;
     }
 
     @Override
-    public Status placeOnQueue(Order order) {
+    public void placeOnQueue(Order order) {
 
-        jmsOperations.send(ORDER_QUEUE, messageCreator);
+        ordersQueue.send(ORDER_QUEUE, messageCreator);
 
         LOG.info("Received order {}/{}", order.getUserId(), order.getSessionId());
 
-        // TODO refactor to sending order/accepted via message queue back to order service
-        return ACCEPTED;
+        ordersStatusQueue.send(ORDER_STATUS_QUEUE, messageCreator);
     }
 
     private static final Logger LOG = LoggerFactory.getLogger(OrderSender.class);
 
-    private final JmsOperations jmsOperations;
+    private final JmsOperations ordersQueue;
+    private final JmsOperations ordersStatusQueue;
     private final MessageCreator messageCreator;
 }

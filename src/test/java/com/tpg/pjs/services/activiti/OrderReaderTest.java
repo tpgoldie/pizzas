@@ -13,7 +13,7 @@ public class OrderReaderTest extends OrderMessagingTest {
     public void readOrderFromQueue() throws Exception {
         given()
             .runtimeService(runtimeService)
-            .jmsOperations(jmsOperations)
+            .jmsOperations(ordersQueue)
             .orderReader(orderReader)
             .order(order)
         .when()

@@ -34,7 +34,7 @@ public abstract class OrderMessagingTest implements StringGeneration, OrderItemD
     }
 
     @Mock
-    JmsOperations jmsOperations;
+    JmsOperations ordersQueue;
 
     Order order;
 }

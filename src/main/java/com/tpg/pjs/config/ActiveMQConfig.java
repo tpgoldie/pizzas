@@ -17,4 +17,6 @@ public class ActiveMQConfig {
     }
 
     public static final String ORDER_QUEUE = "orders-queue";
+
+    public static final String ORDER_STATUS_QUEUE = "orders-status-queue";
 }
