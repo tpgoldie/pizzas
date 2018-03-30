@@ -6,13 +6,12 @@ import org.springframework.jms.core.JmsOperations;
 import org.springframework.jms.core.MessageCreator;
 
 import javax.jms.JMSException;
-import javax.jms.Session;
 
 import static com.tpg.pjs.config.ActiveMQConfig.ORDER_QUEUE;
+import static com.tpg.pjs.ordering.Order.Status.ACCEPTED;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.eq;
-import static org.mockito.Matchers.isA;
 import static org.mockito.Mockito.verify;
 
 class PlaceOrderOnQueue {
@@ -31,7 +30,7 @@ class PlaceOrderOnQueue {
         return this;
     }
 
-    PlaceOrderOnQueue action(PlaceOnOrdersQueueAction queueAction) {
+    PlaceOrderOnQueue action(OrderSender queueAction) {
 
         this.queueAction = queueAction;
 
@@ -57,9 +56,7 @@ class PlaceOrderOnQueue {
 
     PlaceOrderOnQueue placeOrderOnQueue(Order order) {
 
-        this.order = order;
-
-        queueAction.placeOnQueue(order);
+        actual = queueAction.placeOnQueue(order);
 
         return this;
     }
@@ -70,15 +67,17 @@ class PlaceOrderOnQueue {
 
         verify(jmsOperations).send(argumentCaptor.capture(), eq(messageCreator));
 
-        String actual = argumentCaptor.getValue();
+        String actualName = argumentCaptor.getValue();
 
-        assertEquals(ORDER_QUEUE, actual);
+        assertEquals(ORDER_QUEUE, actualName);
+
+        assertEquals(ACCEPTED, actual);
 
         return this;
     }
 
     private JmsOperations jmsOperations;
     private MessageCreator messageCreator;
-    private PlaceOnOrdersQueueAction queueAction;
-    private Order order;
+    private OrderSender queueAction;
+    private Order.Status actual;
 }

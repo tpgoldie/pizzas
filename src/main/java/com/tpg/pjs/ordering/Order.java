@@ -17,7 +17,7 @@ import static java.util.stream.Collectors.toList;
 @EqualsAndHashCode
 public class Order implements DateHandling {
 
-    public enum Status { PENDING, COMPLETED, CANCELLED }
+    public enum Status { PENDING, ACCEPTED, COMPLETED, CANCELLED }
 
     private String userId;
 
