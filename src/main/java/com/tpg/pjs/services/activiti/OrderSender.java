@@ -4,28 +4,22 @@ import com.tpg.pjs.ordering.Order;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jms.core.JmsOperations;
-import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.core.MessageCreator;
 import org.springframework.stereotype.Component;
 
 import static com.tpg.pjs.config.ActiveMQConfig.ORDER_QUEUE;
 import static com.tpg.pjs.config.ActiveMQConfig.ORDER_STATUS_QUEUE;
+import static com.tpg.pjs.ordering.Order.Status.ACCEPTED;
 
 @Component
 public class OrderSender implements OrderAcceptance {
 
     @Autowired
-    public OrderSender(JmsTemplate ordersJmsTemplate, JmsTemplate ordersStatusJmsTemplate) {
+    OrderSender(OrdersMessageSender ordersMessageSender, OrdersStatusMessageSender ordersStatusMessageSender, MessageCreator messageCreator) {
 
-        this(ordersJmsTemplate, ordersStatusJmsTemplate, null);
-    }
+        this.ordersMessageSender = ordersMessageSender;
 
-    OrderSender(JmsOperations ordersQueue, JmsOperations ordersStatusQueue, MessageCreator messageCreator) {
-
-        this.ordersQueue = ordersQueue;
-
-        this.ordersStatusQueue = ordersStatusQueue;
+        this.ordersStatusMessageSender = ordersStatusMessageSender;
 
         this.messageCreator = messageCreator;
     }
@@ -33,16 +27,16 @@ public class OrderSender implements OrderAcceptance {
     @Override
     public void placeOnQueue(Order order) {
 
-        ordersQueue.send(ORDER_QUEUE, messageCreator);
+        ordersMessageSender.send(order);
 
         LOG.info("Received order {}/{}", order.getUserId(), order.getSessionId());
 
-        ordersStatusQueue.send(ORDER_STATUS_QUEUE, messageCreator);
+        ordersStatusMessageSender.send(order, ACCEPTED);
     }
 
     private static final Logger LOG = LoggerFactory.getLogger(OrderSender.class);
 
-    private final JmsOperations ordersQueue;
-    private final JmsOperations ordersStatusQueue;
+    private final OrdersMessageSender ordersMessageSender;
+    private final OrdersStatusMessageSender ordersStatusMessageSender;
     private final MessageCreator messageCreator;
 }

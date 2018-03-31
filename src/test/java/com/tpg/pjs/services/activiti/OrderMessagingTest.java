@@ -8,7 +8,6 @@ import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.jms.core.JmsOperations;
 
 import static com.tpg.pjs.ordering.OrderedItemType.PIZZA;
 import static com.tpg.pjs.pizzas.Pizza.Crustiness.DEEP_CRUST;
@@ -34,7 +33,7 @@ public abstract class OrderMessagingTest implements StringGeneration, OrderItemD
     }
 
     @Mock
-    JmsOperations ordersQueue;
+    OrdersMessageSender ordersMessageSender;
 
     Order order;
 }

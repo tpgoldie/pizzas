@@ -1,21 +1,15 @@
 package com.tpg.pjs.services.activiti;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tpg.pjs.ordering.Order;
 import org.activiti.engine.RuntimeService;
 import org.apache.activemq.command.ActiveMQBytesMessage;
-import org.mockito.Mockito;
-import org.springframework.jms.core.JmsOperations;
 
 import javax.jms.BytesMessage;
-import javax.jms.JMSException;
-import javax.jms.Message;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.tpg.pjs.config.ActiveMQConfig.ORDER_QUEUE;
 import static org.mockito.Mockito.verify;
 
 public class ReadOrderFromQueue {
@@ -25,9 +19,9 @@ public class ReadOrderFromQueue {
         return new ReadOrderFromQueue();
     }
 
-    ReadOrderFromQueue jmsOperations(JmsOperations jmsOperations) {
+    ReadOrderFromQueue ordersMessageSender(OrdersMessageSender ordersMessageSender) {
 
-        this.jmsOperations = jmsOperations;
+        this.ordersMessageSender = ordersMessageSender;
 
         return this;
     }
@@ -81,7 +75,7 @@ public class ReadOrderFromQueue {
 
     private OrderReader orderReader;
     private RuntimeService runtimeService;
-    private JmsOperations jmsOperations;
+    private OrdersMessageSender ordersMessageSender;
     private BytesMessage message;
     private Order order;
 }

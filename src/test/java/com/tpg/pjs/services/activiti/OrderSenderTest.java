@@ -3,7 +3,6 @@ package com.tpg.pjs.services.activiti;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
-import org.springframework.jms.core.JmsOperations;
 import org.springframework.jms.core.MessageCreator;
 
 import javax.jms.JMSException;
@@ -17,15 +16,15 @@ public class OrderSenderTest extends OrderMessagingTest {
 
         super.setUp();
 
-        orderSender = new OrderSender(ordersQueue, ordersStatusQueue, messageCreator);
+        orderSender = new OrderSender(ordersMessageSender, ordersStatusMessageSender, messageCreator);
     }
 
     @Test
     public void placeOrderOnQueue() throws JMSException {
 
         given()
-            .ordersQueue(ordersQueue)
-            .ordersStatusQueue(ordersStatusQueue)
+            .ordersMessageSender(ordersMessageSender)
+            .ordersStatusMessageSender(ordersStatusMessageSender)
             .messageCreator(messageCreator)
             .orderSender(orderSender)
         .when()
@@ -39,7 +38,7 @@ public class OrderSenderTest extends OrderMessagingTest {
     private MessageCreator messageCreator;
 
     @Mock
-    private JmsOperations ordersStatusQueue;
+    private OrdersStatusMessageSender ordersStatusMessageSender;
 
     private OrderSender orderSender;
 }

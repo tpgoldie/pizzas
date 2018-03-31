@@ -26,16 +26,16 @@ class PlaceOrderOnQueue {
 
     private PlaceOrderOnQueue() {}
 
-    PlaceOrderOnQueue ordersQueue(JmsOperations ordersQueue) {
+    PlaceOrderOnQueue ordersMessageSender(OrdersMessageSender ordersMessageSender) {
 
-        this.ordersQueue = ordersQueue;
+        this.ordersMessageSender = ordersMessageSender;
 
         return this;
     }
 
-    PlaceOrderOnQueue ordersStatusQueue(JmsOperations ordersStatusQueue) {
+    PlaceOrderOnQueue ordersStatusMessageSender(OrdersStatusMessageSender ordersStatusMessageSender) {
 
-        this.ordersStatusQueue = ordersStatusQueue;
+        this.ordersStatusMessageSender = ordersStatusMessageSender;
 
         return this;
     }
@@ -61,6 +61,8 @@ class PlaceOrderOnQueue {
 
     PlaceOrderOnQueue placeOrderOnQueue(Order order) {
 
+        this.order = order;
+
         queueAction.placeOnQueue(order);
 
         return this;
@@ -73,35 +75,21 @@ class PlaceOrderOnQueue {
 
     PlaceOrderOnQueue orderIsPlacedOnQueue() throws JMSException {
 
-        verify(ordersQueue).send(stringArgumentCaptor.capture(), eq(messageCreator));
-
-        String actualName = stringArgumentCaptor.getValue();
-
-        assertEquals(ORDER_QUEUE, actualName);
+        verify(ordersMessageSender).send(order);
 
         return this;
     }
 
     PlaceOrderOnQueue orderAcceptedStatusResponseSent() {
 
-        verify(ordersStatusQueue).send(stringArgumentCaptor.capture(), messageCreatorArgumentCaptor.capture());
-
-        String destination = stringArgumentCaptor.getValue();
-
-        assertEquals(destination, "orders-status-queue");
-
-        MessageCreator messageCreatorActual = messageCreatorArgumentCaptor.getValue();
-
-        assertThat(messageCreatorActual, is(not(nullValue())));
+        verify(ordersStatusMessageSender).send(order, ACCEPTED);
 
         return this;
     }
 
-    private JmsOperations ordersQueue;
-    private JmsOperations ordersStatusQueue;
+    private OrdersMessageSender ordersMessageSender;
+    private OrdersStatusMessageSender ordersStatusMessageSender;
     private MessageCreator messageCreator;
     private OrderSender queueAction;
-
-    private ArgumentCaptor<String> stringArgumentCaptor = ArgumentCaptor.forClass(String.class);
-    private ArgumentCaptor<MessageCreator> messageCreatorArgumentCaptor = ArgumentCaptor.forClass(MessageCreator.class);
+    private Order order;
 }
