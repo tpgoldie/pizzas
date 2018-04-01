@@ -39,10 +39,11 @@ public class OrderRequestToOrderEntityConverterTest implements OrderDetailsReque
         OrderEntity actual = converter.convert(request);
 
         List<OrderItemEntity> orderItems = request.getOrderedItems().stream()
-                .map(value -> newOrderItemEntity(actual, value.getItemTypeCode(), value.getItemCode(),
+                .map(value -> newOrderItemEntity(value.getItemTypeCode(), value.getItemCode(),
                         value.getSize(), value.getCrustiness(), new BigDecimal(value.getPrice()),
                         value.getQuantity())).collect(toList());
 
+        orderItems.forEach(item -> item.setOrder(actual));
         assertThat(actual).hasOrderItems(orderItems);
     }
 }

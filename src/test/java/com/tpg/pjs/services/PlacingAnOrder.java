@@ -115,11 +115,13 @@ public class PlacingAnOrder implements OrderDetailsRequestFixture, OrderedPizzaF
         OrderEntity orderEntity = newOrderEntity(request.getUserId(), request.getSessionId(), ZonedDateTime.now(), emptyList());
 
         List<OrderItemEntity> orderItemEntities = request.getOrderedItems().stream()
-                .map(value -> newOrderItemEntity(orderEntity, value.getItemTypeCode(),
+                .map(value -> newOrderItemEntity(value.getItemTypeCode(),
                         value.getItemCode(), value.getSize(), value.getCrustiness(),
                         new BigDecimal(value.getPrice()), value.getQuantity())).collect(toList());
 
         orderEntity.setOrderItems(orderItemEntities);
+
+        orderItemEntities.forEach(item -> item.setOrder(orderEntity));
 
         OrderItemEntity orderItemEntity = orderItemEntities.get(0);
 

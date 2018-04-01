@@ -17,6 +17,8 @@ public interface OrderEntityFixture {
 
         entity.setOrderItems(orderedItems);
 
+        orderedItems.forEach(item -> item.setOrder(entity));
+
         return entity;
     }
 }

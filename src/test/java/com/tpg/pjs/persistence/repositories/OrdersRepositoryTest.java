@@ -33,10 +33,13 @@ public abstract class OrdersRepositoryTest implements OrderEntityFixture, OrderI
 
         order = newOrderEntity("pjs", "abc-123", ZonedDateTime.now(), emptyList());
 
-        List<OrderItemEntity> items = singletonList(newOrderItemEntity(order, PIZZA.getCode(),
+        List<OrderItemEntity> items = singletonList(newOrderItemEntity(PIZZA.getCode(),
                 CHICKEN_CLUB_CODE.getValue(), LARGE.name(), THIN_CRUST.name(), new BigDecimal(15.95),
                 2));
+
         order.setOrderItems(items);
+
+        items.forEach(item -> item.setOrder(order));
     }
 
     @Autowired

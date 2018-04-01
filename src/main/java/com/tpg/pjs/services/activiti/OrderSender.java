@@ -7,8 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.MessageCreator;
 import org.springframework.stereotype.Component;
 
-import static com.tpg.pjs.config.ActiveMQConfig.ORDER_QUEUE;
-import static com.tpg.pjs.config.ActiveMQConfig.ORDER_STATUS_QUEUE;
 import static com.tpg.pjs.ordering.Order.Status.ACCEPTED;
 
 @Component
